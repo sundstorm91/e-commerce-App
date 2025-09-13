@@ -23,3 +23,12 @@ export interface ICart {
     products: TCartItem[];
     __v: number;
 }
+
+export interface IAuthModalData {
+    mode: 'register' | 'login';
+    email?: string;
+}
+
+export interface ICartModalData {
+    promocode?: string;
+}
