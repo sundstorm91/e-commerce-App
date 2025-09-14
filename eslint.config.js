@@ -20,6 +20,7 @@ const typeScriptOverrideConfig = tseslint.config({
     // Мягкие настройки для TypeScript
     '@typescript-eslint/no-unused-vars': 'warn', // Предупреждение вместо ошибки
     '@typescript-eslint/no-explicit-any': 'warn', // Разрешаем any, но с предупреждением
+    'react/prop-types': 'off',
   },
 });
 
