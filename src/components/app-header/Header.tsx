@@ -5,19 +5,19 @@ import { DropdownListLanguage } from './language/language';
 import { useState } from 'react';
 
 export interface ILang {
-  value: 'ru' | 'en' | 'es';
+  value: 'RU' | 'EN' | 'ES';
   label: 'Русский' | 'English' | 'Español';
 }
 
 const lang: ILang[] = [
-  { label: 'Русский', value: 'ru' },
-  { label: 'English', value: 'en' },
-  { label: 'Español', value: 'es' },
+  { label: 'Русский', value: 'RU' },
+  { label: 'English', value: 'EN' },
+  /* { label: 'Español', value: 'es' }, */
 ];
 
 export const Header = () => {
   const [selectLang, setSelectLang] = useState<ILang>({
-    value: 'ru',
+    value: 'RU',
     label: 'Русский',
   });
 

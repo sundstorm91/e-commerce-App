@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ILang } from '../Header';
+import ru from '../../../assets/svg/ru.svg';
+import en from '../../../assets/svg/ca.svg';
+import es from '../../../assets/svg/am.svg';
 
 interface IDropDownProps {
   options: ILang[];
@@ -36,8 +39,8 @@ export const DropdownListLanguage: React.FC<IDropDownProps> = ({
 
   return (
     <div ref={dropDownRef} className="w-50 h-10">
-      <img src="" alt="" />
-      <button onClick={() => setIsOpen(!isOpen)}>
+      <button onClick={() => setIsOpen(!isOpen)} className="flex items-center">
+        <img src={selectedOption.value === 'RU' ? ru : en} alt="" />
         {selectedOption?.value || 'Выберите язык'}
         <span className={`arrow ${isOpen ? 'open' : ''}`}>▼</span>
       </button>
