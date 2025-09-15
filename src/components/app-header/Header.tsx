@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import iconShop from '../../assets/svg/icons8-galaxy-store.svg';
 import { Search } from '../search/Search';
-import { DropdownList } from './language/Language';
+import { DropdownList } from './dropDownComponent/DropDownList';
 import { useState } from 'react';
 import ru from '../../assets/svg/ru.svg';
 import en from '../../assets/svg/ca.svg';

@@ -23,8 +23,6 @@ export const DropdownList = <T,>({
   const currentOptions = filterFn ? options.filter(filterFn) : options;
   const dropDownRef = useRef<HTMLDivElement | null>(null);
 
-  // ... остальная логика
-
   return (
     <div ref={dropDownRef}>
       <button onClick={() => setIsOpen(!isOpen)}>
