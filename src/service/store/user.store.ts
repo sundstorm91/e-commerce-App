@@ -25,9 +25,10 @@ interface IUserState {
     token?: string | null;
     isAuth: boolean;
 
+
     login: (credentials: ILoginCredentials) => Promise<void>;
     logout: () => void
-
+    checkAuth?: () => void;
 }
 
 export const useUserStore = create<IUserState>((set) => ({
@@ -51,13 +52,16 @@ export const useUserStore = create<IUserState>((set) => ({
                 throw new Error ('user not found');
             }
 
+            localStorage.setItem('authToken', token);
+            localStorage.setItem('user', JSON.stringify(user))
+
             set({
                 currentUser: user,
                 token: token,
                 isAuth: true,
                 error: null,
-
             })
+
         } catch(err: unknown) {
             const errMessage = err instanceof Error ? err.message : 'Login Failed';
             set({
@@ -72,12 +76,29 @@ export const useUserStore = create<IUserState>((set) => ({
     },
 
     logout: () => {
+
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+
         set({
             currentUser: null,
             error: null,
             token: null,
             isAuth: false,
         })
+    },
+
+    checkAuth: () => {
+        const user = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+
+        if (user && token) {
+            set({
+                currentUser: JSON.parse(user),
+                isAuth: true,
+                token: token,
+            })
+        }
     },
 
 
