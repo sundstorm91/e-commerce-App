@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 interface IDropDownProps<T> {
   options: T[] /* массив всего */;
-  selectedOption: T /* конкретно выбраный */;
+  selectedOption: T | null /* конкретно выбраный */;
   onSelect: (option: T) => void /* коллбэк */;
   renderTrigger: (isOpen: boolean) => React.ReactNode;
   renderItem: (item: T) => React.ReactNode;
