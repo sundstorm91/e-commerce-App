@@ -1,6 +1,7 @@
 import { useState, type ReactElement } from 'react';
 import { Header } from './components/app-header/Header';
 import { Outlet, Route, Routes } from 'react-router-dom';
+import { MainPage } from './pages/MainPage';
 
 const App = () => {
   const Layout = (): ReactElement => {
@@ -16,7 +17,9 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Layout />} />
+      <Route path="/" element={<Layout />}>
+        <Route index element={<MainPage />} />
+      </Route>
     </Routes>
   );
 };
