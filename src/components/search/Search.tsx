@@ -10,7 +10,7 @@ export const Search = () => {
   };
 
   return (
-    <form className="flex gap-4 m-2">
+    <form className="flex gap-2 m-2">
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}
