@@ -8,12 +8,17 @@ export interface IProductState {
     error: string | null;
 
     fetchProducts: () => Promise<void>; /* Promise<void> <void> */
+    clearError: () => void;
+
+    isFetched: boolean;
 }
 
 export const useProductStore = create<IProductState>((set, get) => ({
     products: [],
     error: null,
     isLoading: false,
+    isFetched: false,
+
 
     fetchProducts: async () => {
         set({ isLoading: true, error: null})
@@ -24,6 +29,7 @@ export const useProductStore = create<IProductState>((set, get) => ({
             set({
                 products: products,
                 isLoading: false,
+                isFetched: true,
             })
 
         } catch (err) {
@@ -33,5 +39,11 @@ export const useProductStore = create<IProductState>((set, get) => ({
                 isLoading: false,
             })
         }
+    },
+
+    clearError: () => {
+        set({
+            error: null,
+        })
     },
 }))
