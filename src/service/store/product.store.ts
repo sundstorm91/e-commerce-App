@@ -25,7 +25,7 @@ export const useProductStore = create<IProductState>((set, get) => ({
 
         try {
             const products = await ProductsService.getAll();
-
+            console.log(products)
             set({
                 products: products,
                 isLoading: false,

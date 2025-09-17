@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 interface IDropDownProps<T> {
-  options: T[] /* массив всего */;
-  selectedOption: T | null /* конкретно выбраный */;
-  onSelect: (option: T) => void /* коллбэк */;
+  options: T[];
+  selectedOption: T | null;
+  onSelect: (option: T) => void;
   renderTrigger: (isOpen: boolean) => React.ReactNode;
   renderItem: (item: T) => React.ReactNode;
   filterFn?: (item: T) => boolean;
@@ -13,10 +13,9 @@ interface IDropDownProps<T> {
 export const DropdownList = <T,>({
   onSelect,
   options,
-  selectedOption,
   filterFn,
   keyExtractor,
-  renderTrigger, // ✅ isOpen уже типизирован в интерфейсе
+  renderTrigger,
   renderItem,
 }: IDropDownProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +25,7 @@ export const DropdownList = <T,>({
   return (
     <div ref={dropDownRef}>
       <button onClick={() => setIsOpen(!isOpen)}>
-        {renderTrigger(isOpen)} {/* ✅ isOpen: boolean */}
+        {renderTrigger(isOpen)}
       </button>
 
       {isOpen && (
