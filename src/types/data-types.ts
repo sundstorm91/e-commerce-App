@@ -11,7 +11,7 @@ export interface IProduct {
     }
 }
 
-export type TCartItem = {
+export interface ICartItemFromApi {
     productId: number;
     quantity: number;
 }
@@ -19,10 +19,12 @@ export type TCartItem = {
 export interface ICart {
     id: number;
     userId: number;
-    date: string;
-    products: TCartItem[];
-    __v: number;
+    date?: string;
+    products: ICartItemFromApi[];
+    __v?: number;
 }
+
+
 
 export interface IAuthModalData {
     mode: 'register' | 'login';

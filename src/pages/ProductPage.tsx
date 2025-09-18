@@ -99,6 +99,7 @@ export const ProductPage = () => {
               Главная
             </Link>
             <span className="mx-2">/</span>
+
             <Link
               to={`/category/${product.category}`}
               className="hover:text-gray-900 capitalize"
@@ -106,6 +107,7 @@ export const ProductPage = () => {
               {product.category}
             </Link>
             <span className="mx-2">/</span>
+
             <span className="text-gray-900 line-clamp-1">{product.title}</span>
           </div>
         </nav>

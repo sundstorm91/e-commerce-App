@@ -8,7 +8,8 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-  // Форматируем цену с рублями (можно адаптировать под другую валюту)
+  // форматирование валюты
+
   const formattedPrice = new Intl.NumberFormat('ru-RU', {
     style: 'currency',
     currency: 'RUB',
@@ -20,7 +21,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-      {/* Кнопка "Избранное" (абсолютное позиционирование) */}
       <button
         className="absolute right-3 top-3 z-10 rounded-full bg-white/80 p-1.5 opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 hover:!opacity-100 hover:bg-rose-50 hover:text-rose-500"
         aria-label="Добавить в избранное"
@@ -28,7 +28,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <Heart className="h-4 w-4" strokeWidth={2} />
       </button>
 
-      {/* Обертка для картинки */}
       <Link to={`/product/${product.id}`} className="flex-shrink-0">
         <img
           src={product.image}
@@ -38,21 +37,17 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         />
       </Link>
 
-      {/* Контент карточки */}
-      <div className="flex flex-1 flex-col p-4">
-        {/* Категория (необязательно) */}
+      <div className="flex  flex-1 flex-col p-4">
         <span className="mb-1 text-xs font-medium uppercase text-gray-500">
           {product.category}
         </span>
 
-        {/* Название товара */}
         <Link to={`/product/${product.id}`}>
           <h3 className="mb-2 line-clamp-2 text-sm font-semibold text-gray-900 hover:text-blue-600">
             {product.title}
           </h3>
         </Link>
 
-        {/* Рейтинг и количество отзывов */}
         <div className="mb-3 flex items-center gap-1">
           <div className="flex text-amber-400">
             {[...Array(5)].map((_, i) => (
@@ -68,12 +63,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </span>
         </div>
 
-        {/* Описание (необязательно, можно скрыть) */}
         <p className="mb-4 line-clamp-2 text-xs text-gray-600 flex-1">
           {product.description}
         </p>
 
-        {/* Цена и кнопка в корзину */}
         <div className="mt-auto flex items-center justify-between">
           <span className="text-lg font-bold text-gray-900">
             {formattedPrice}
