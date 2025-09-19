@@ -3,8 +3,10 @@ import { create } from 'zustand';
 import { useUserStore } from "./user.store";
 import { CartService } from "@/api/cart";
 import { ProductsService } from "@/api/products";
+import { tranformIntoCartItem } from "@/utils/helpers";
+import { useUIstore } from "./ui.store";
 
-type TCartItemForUI = Pick<IProduct, 'id' | 'title' | 'price' | 'image'>
+export type TCartItemForUI = Pick<IProduct, 'id' | 'title' | 'price' | 'image'>
   & Omit<ICartItemFromApi, 'productId'>;
 
 
@@ -16,14 +18,14 @@ interface ICartState {
     error: string | null;
 
     loadCart:() => void;
-    addItem: (product: IProduct, quantity: number) => void;
+    addItem: (product: IProduct, quantity?: number) => void;
     /* updateItem: (productId: number) => void; */
     removeItem: (productId: number) => void;
 
 
 }
 
-const useCartStore = create<ICartState>((set) => ({
+const useCartStore = create<ICartState>((set, get) => ({
     items: [],
     isLoading: false,
     userId: null,
@@ -76,8 +78,35 @@ const useCartStore = create<ICartState>((set) => ({
         }
     },
 
-    addItem(product) {
+addItem: (product) => {
+        const isAuth = useUserStore.getState().isAuth;
 
+        if (!isAuth) {
+                useUIstore.getState().openModal('auth', {
+                    mode: 'login'
+                });
+
+            return;
+        }
+
+        const currentItems = get().items;
+
+        const findItem = currentItems.find((item) => item.id === product.id);
+
+
+        if (!findItem) {
+            set({
+                items: [...get().items, tranformIntoCartItem(product)]
+            })
+        } else {
+            const updatedItems = currentItems.map(item =>
+                item.id === product.id
+                ? { ...item, quantity: item.quantity + 1 } // Исправлено здесь
+                : item
+            );
+            set({ items: updatedItems });
+
+        }
     },
 
     removeItem(productId) {

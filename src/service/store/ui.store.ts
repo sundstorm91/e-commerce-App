@@ -28,6 +28,7 @@ export const useUIstore = create<IUIStore>((set) => ({
 
     openModal(modalType, data) {
         switch(modalType) {
+
             case 'cart':
                 return set({
                     isCartOpen: true, modalData: data
