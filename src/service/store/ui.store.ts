@@ -1,7 +1,7 @@
 import type { IAuthModalData, ICartModalData, IProduct } from '@/types/data-types';
 import { create } from 'zustand';
 
-type TModalType = 'cart' | 'auth' | 'productView' | 'burger';
+type TModalType = 'cart' | 'auth' | 'productView' | 'burger'| 'checkout';
 type TModalData = (IProduct | IAuthModalData | ICartModalData) | null;
 
 interface IUIStore {
@@ -10,7 +10,7 @@ interface IUIStore {
     isBurgerOpen: boolean;
     isLoading: boolean;
     modalData: TModalData | null;
-
+    isCheckout: boolean;
     /* auth */
     isAuthOpen: boolean;
 
@@ -25,14 +25,20 @@ export const useUIstore = create<IUIStore>((set) => ({
     isLoading: false,
     isProductViewOpen: false,
     modalData: null,
+    isCheckout: false,
 
     openModal(modalType, data) {
         switch(modalType) {
 
-            case 'cart':
+                case 'cart':
                 return set({
                     isCartOpen: true, modalData: data
                 })
+
+                case 'checkout':
+                    return set({
+                        isCheckout: true, modalData: data
+                    })
 
                 case 'auth':
                 return set({
@@ -76,6 +82,11 @@ export const useUIstore = create<IUIStore>((set) => ({
                     return set({
                     isBurgerOpen: false,
                 })
+
+                case 'checkout':
+                    return set({
+                    isCheckout: false,
+                }) /* ! */
 
                 default:
                     return;

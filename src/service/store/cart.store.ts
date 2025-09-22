@@ -21,7 +21,7 @@ interface ICartState {
     addItem: (product: IProduct, quantity?: number) => void;
     updateQuantity: (itemId: number, quantity: number) => void;
     removeItem: (productId: number) => void;
-    total: ()=> number;
+    total: () => number;
 
 }
 
