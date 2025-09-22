@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom';
 import iconShop from '../../assets/svg/icons8-galaxy-store.svg';
 import { Search } from '../search/Search';
 import { DropdownList } from './dropDownComponent/DropDownList';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ru from '../../assets/svg/ru.svg';
 import en from '../../assets/svg/ca.svg';
@@ -10,6 +9,7 @@ import { useLanguageStore } from '@/service/store/language.store';
 import { useUserStore } from '@/service/store/user.store';
 import { useUIstore } from '@/service/store/ui.store';
 import { UserIcon } from 'lucide-react';
+import cartLogo from '../../assets/svg/cart-2.svg';
 
 /* switch languages */
 interface UILanguages {
@@ -58,7 +58,7 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 m-5">
-      <div className="container mx-auto gap-4 flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto gap-4 flex h-16 items-center justify-evenly px-4 sm:px-6 lg:px-8">
         <NavLink to="/" className="flex items-center space-x-2">
           <img src={iconShop} alt="logo-shop" className="h-8 w-8" />
           <span className="hidden font-bold text-xl sm:inline-block">
@@ -170,6 +170,12 @@ export const Header = () => {
             }
           />
         </div>
+        <NavLink
+          to="/cart"
+          className=" text-white rounded-2xl p-2 mb-2 hover:bg-gray-100 "
+        >
+          <img src={cartLogo} alt="cart-logo" className="w-12 h-12" />
+        </NavLink>
       </div>
     </header>
   );

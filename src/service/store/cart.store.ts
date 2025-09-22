@@ -19,13 +19,13 @@ interface ICartState {
 
     loadCart:() => void;
     addItem: (product: IProduct, quantity?: number) => void;
-    /* updateItem: (productId: number) => void; */
+    updateQuantity: (itemId: number, quantity: number) => void;
     removeItem: (productId: number) => void;
-
+    total: ()=> number;
 
 }
 
-const useCartStore = create<ICartState>((set, get) => ({
+export const useCartStore = create<ICartState>((set, get) => ({
     items: [],
     isLoading: false,
     userId: null,
@@ -78,7 +78,7 @@ const useCartStore = create<ICartState>((set, get) => ({
         }
     },
 
-addItem: (product) => {
+    addItem: (product) => {
         const isAuth = useUserStore.getState().isAuth;
 
         if (!isAuth) {
@@ -101,7 +101,7 @@ addItem: (product) => {
         } else {
             const updatedItems = currentItems.map(item =>
                 item.id === product.id
-                ? { ...item, quantity: item.quantity + 1 } // Исправлено здесь
+                ? { ...item, quantity: item.quantity + 1 }
                 : item
             );
             set({ items: updatedItems });
@@ -115,9 +115,35 @@ addItem: (product) => {
         }))
     },
 
+    total: () => get().items.reduce((acc, curr) => acc + (curr.price + curr.quantity) , 0),
+
+    updateQuantity(itemId, newQuantity) {
+        const currentItems = get().items;
+
+        if (newQuantity <= 0) {
+            get().removeItem(itemId)
+            return;
+        }
+
+        const updateItems = currentItems.map((item) => {
+            return item.id === itemId
+             ? {
+                ...item, quantity: newQuantity
+            }
+            :
+            item
+        })
+
+        set({
+            items: updateItems
+        })
+
+    },
+
+
 }))
 
-export default useCartStore;
+
 
 
 
