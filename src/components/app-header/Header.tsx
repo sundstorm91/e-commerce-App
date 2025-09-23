@@ -8,7 +8,7 @@ import en from '../../assets/svg/ca.svg';
 import { useLanguageStore } from '@/service/store/language.store';
 import { useUserStore } from '@/service/store/user.store';
 import { useUIstore } from '@/service/store/ui.store';
-import { UserIcon } from 'lucide-react';
+import { Divide, UserIcon } from 'lucide-react';
 import cartLogo from '../../assets/svg/cart-2.svg';
 
 /* switch languages */
@@ -107,7 +107,7 @@ export const Header = () => {
           />
 
           <div className="h-6 w-px bg-gray-300"></div>
-
+          <div>{isAuth ? 'true' : 'false'}</div>
           <DropdownList
             options={
               isAuth ? profileOptions.authorized : profileOptions.unauthorized

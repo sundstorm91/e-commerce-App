@@ -35,13 +35,13 @@ export const useUIstore = create<IUIStore>((set) => ({
                     isCartOpen: true, modalData: data
                 })
 
-                case 'checkout':
+                case 'checkout': /* ! modalData - нехватает типа! */
                     return set({
                         isCheckout: true, modalData: data
                     })
 
                 case 'auth':
-                return set({
+                    return set({
                     isAuthOpen: true, modalData: data
                 })
 
@@ -63,6 +63,7 @@ export const useUIstore = create<IUIStore>((set) => ({
 
     closeModal(modalType) {
         switch(modalType) {
+
             case 'cart':
                 return set({
                     isCartOpen: false,

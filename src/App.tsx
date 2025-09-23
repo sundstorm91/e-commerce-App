@@ -4,8 +4,13 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import { MainPage } from './pages/MainPage';
 import { ProductPage } from './pages/ProductPage';
 import { CartPage } from './pages/CartPage';
+import { useUIstore } from './service/store/ui.store';
+import { CheckoutModal } from './components/checkout/CheckoutModal';
+import { AuthModal } from './components/modal/auth-modal/AuthModal';
 
 const App = () => {
+  const { isAuthOpen } = useUIstore();
+
   const Layout = (): ReactElement => {
     return (
       <div className="flex flex-col min-h-screen">
@@ -13,6 +18,8 @@ const App = () => {
         <main className="flex-1">
           <Outlet />
         </main>
+
+        {isAuthOpen && <AuthModal />}
       </div>
     );
   };
@@ -29,3 +36,26 @@ const App = () => {
 };
 
 export default App;
+
+/* {
+address: {
+geolocation: {
+lat: "-37.3159",
+long: "81.1496"
+},
+city: "kilcoole",
+street: "new road",
+number: 7682,
+zipcode: "12926-3874"
+},
+id: 1,
+email: "john@gmail.com",
+username: "johnd",
+password: "m38rmF$",
+name: {
+firstname: "john",
+lastname: "doe"
+},
+phone: "1-570-236-7033",
+__v: 0
+}, */

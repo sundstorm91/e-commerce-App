@@ -27,7 +27,8 @@ interface IUserState {
 
 
     login: (credentials: ILoginCredentials) => Promise<void>;
-    logout: () => void
+    logout: () => void;
+    register: (username: string,  password: string, email?: string,) => void;
     checkAuth?: () => void;
 }
 
@@ -99,6 +100,22 @@ export const useUserStore = create<IUserState>((set) => ({
                 token: token,
             })
         }
+    },
+
+    register(username, password, email) {
+        const mockUser = {
+            id: Math.random(),
+            username: username,
+            email: email!,
+            token: 'fake-token-jwt',
+        }
+
+        set({
+            currentUser: mockUser, isAuth: true
+        })
+
+        localStorage.setItem('user', JSON.stringify(mockUser))
+
     },
 
 
