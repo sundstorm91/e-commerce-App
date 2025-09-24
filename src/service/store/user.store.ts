@@ -28,7 +28,7 @@ interface IUserState {
 
     login: (credentials: ILoginCredentials) => Promise<void>;
     logout: () => void;
-    register: (username: string,  password: string, email?: string,) => void;
+    register: (username: string,  password: string, email?: string) => void;
     checkAuth?: () => void;
 }
 
@@ -108,6 +108,7 @@ export const useUserStore = create<IUserState>((set) => ({
             username: username,
             email: email!,
             token: 'fake-token-jwt',
+            password: password,
         }
 
         set({
