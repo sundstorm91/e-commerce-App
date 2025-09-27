@@ -5,8 +5,9 @@ import { MainPage } from './pages/MainPage';
 import { ProductPage } from './pages/ProductPage';
 import { CartPage } from './pages/CartPage';
 import { useUIstore } from './service/store/ui.store';
-import { CheckoutModal } from './components/checkout/CheckoutModal';
 import { AuthModal } from './components/modal/auth-modal/AuthModal';
+import { ProtectedRouteElement } from './components/auth/ProtectedRouteElement';
+import { ProfilePage } from './pages/ProfilePage';
 
 const App = () => {
   const { isAuthOpen } = useUIstore();
@@ -15,6 +16,7 @@ const App = () => {
     return (
       <div className="flex flex-col min-h-screen">
         <Header />
+
         <main className="flex-1">
           <Outlet />
         </main>
@@ -30,6 +32,15 @@ const App = () => {
         <Route index element={<MainPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/cart" element={<CartPage />} />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRouteElement>
+              <ProfilePage />
+            </ProtectedRouteElement>
+          }
+        />
       </Route>
     </Routes>
   );

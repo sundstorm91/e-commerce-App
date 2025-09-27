@@ -15,7 +15,7 @@ export const CartService = {
   },
 
 
-  async getByUserId(userId: number): Promise<ICart> {
+  async getByUserId(userId: number): Promise<ICart[]> {
     const response = await api.get(`/carts/user/${userId}`);
     return response.data;
   },

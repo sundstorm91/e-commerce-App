@@ -1,4 +1,4 @@
-import type { IProduct, ICartItemFromApi } from "@/types/data-types";
+import type { IProduct, ICartItemFromApi, ICart } from "@/types/data-types";
 import { create } from 'zustand';
 import { useUserStore } from "./user.store";
 import { CartService } from "@/api/cart";
@@ -34,13 +34,16 @@ export const useCartStore = create<ICartState>((set, get) => ({
 
 
     loadCart: async() => {
+        console.log('🔹 loadCart STARTED');
         const userId = useUserStore.getState().currentUser?.id;
+        console.log('🔹 userId:', userId);
 
         set({
             isLoading: true, error: null
         })
 
         if (!userId) {
+            console.log('🔹 No userId - clearing cart');
             set({
                 items: []
             })
@@ -48,19 +51,23 @@ export const useCartStore = create<ICartState>((set, get) => ({
         }
 
         try {
+            console.log('🔹 Fetching cart data...');
             const cartData = await CartService.getByUserId(userId);
+            console.log('🔹 cartData from API:', cartData);
+
+            const firstCart = cartData[0];
 
             const transformData = await Promise.all(
-               cartData.products.map( async (item) => {
+                firstCart.products.map( async(item) => {
                     const productDetails = await ProductsService.getById(item.productId);
+
                     return {
                         id: productDetails.id,
                         title: productDetails.title,
                         price: productDetails.price,
                         image: productDetails.image,
-                        quantity: item.quantity
-
-                    }
+                        quantity: Math.max(1, item.quantity || 1)
+                    } as TCartItemForUI
                 })
             )
 
@@ -69,8 +76,10 @@ export const useCartStore = create<ICartState>((set, get) => ({
                 error: null,
                 isLoading: false,
             })
+
         } catch (err) {
                 const errMessage = err instanceof Error ? err.message : 'Failed to Fetch cart store';
+                console.error('🔹 loadCart ERROR:', errMessage);
                 set({
                     error: errMessage,
                     isLoading: false,

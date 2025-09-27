@@ -1,6 +1,7 @@
 import { api } from '@/utils/api-utils';
 import { create } from 'zustand';
 import { UserService } from '../api/users';
+import { useCartStore } from './cart.store';
 
 export interface ILoginCredentials {
     username: string;
@@ -63,6 +64,7 @@ export const useUserStore = create<IUserState>((set) => ({
                 error: null,
             })
 
+          useCartStore.getState().loadCart();
         } catch(err: unknown) {
             const errMessage = err instanceof Error ? err.message : 'Login Failed';
             set({

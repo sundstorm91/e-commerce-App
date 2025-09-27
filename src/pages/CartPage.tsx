@@ -16,6 +16,7 @@ export const CartPage = () => {
 
   // Если корзина пустая!
   if (cartItems.length === 0) {
+    console.log('НУЛЬ!', cartItems);
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="text-center max-w-md mx-auto">

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useUIstore } from '../../service/store/ui.store';
 import { useUserStore } from '../../service/store/user.store';
+import { useCartStore } from '@/service/store/cart.store';
 
 export const LoginForm = () => {
   const [username, setUserName] = useState('');
@@ -9,6 +10,7 @@ export const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { closeModal, openModal } = useUIstore();
+  /* const { loadCart } = useCartStore(); */
   const { login } = useUserStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,6 +22,7 @@ export const LoginForm = () => {
         username,
         password,
       });
+      /* await loadCart(); */
       closeModal('auth');
     } catch (error) {
       console.error('Login failed:', error);
@@ -35,7 +38,7 @@ export const LoginForm = () => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Email
+            Email johnd
           </label>
           <input
             type="text"
@@ -48,7 +51,7 @@ export const LoginForm = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Пароль
+            Пароль m38rmF$
           </label>
           <input
             type="password"

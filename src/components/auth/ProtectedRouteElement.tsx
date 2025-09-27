@@ -19,6 +19,7 @@ export const ProtectedRouteElement: React.FC<ProtectedRouteProps> = ({
   const { openModal } = useUIstore();
 
   if (!onlyUnAuth && !isAuth) {
+    /* защищеный маршрут и неавторизованный пользователь */
     openModal('auth', { mode: 'login' });
     return <Navigate to="/" replace />;
   }
@@ -26,5 +27,6 @@ export const ProtectedRouteElement: React.FC<ProtectedRouteProps> = ({
   if (onlyUnAuth && isAuth) {
     return <Navigate to="/" replace />;
   }
+
   return children;
 };
