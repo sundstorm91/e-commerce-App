@@ -15,7 +15,8 @@ import { useCartStore } from '@/service/store/cart.store';
 export const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { products, addToWishlist } = useProductStore();
+  const { products, addToWishlist, removeFromWishlist, isWishlisted } =
+    useProductStore();
   const { addItem } = useCartStore();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -55,8 +56,12 @@ export const ProductPage = () => {
 
   const images = [product.image, product.image, product.image]; // Заглушка
 
-  const handleAddToWishList = () => {
-    addToWishlist(product);
+  const handleWishList = () => {
+    if (isWishlisted(product.id)) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
   };
 
   const handleAddtoCart = () => {
@@ -141,7 +146,7 @@ export const ProductPage = () => {
 
               {/* Кнопка избранного */}
               <button
-                onClick={handleAddToWishList}
+                onClick={handleWishList}
                 className="absolute top-2 right-2 bg-white/80 rounded-full p-2 shadow-md hover:bg-white transition-colors"
               >
                 <Heart className="w-5 h-5 text-gray-600 hover:text-rose-500" />

@@ -10,10 +10,14 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { addItem } = useCartStore();
-  const { addToWishlist } = useProductStore();
+  const { addToWishlist, removeFromWishlist, isWishlisted } = useProductStore();
 
-  const handleAddToWishList = () => {
-    addToWishlist(product);
+  const handleWishList = () => {
+    if (isWishlisted(product.id)) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
   };
 
   const handleAddToCart = () => {
@@ -37,9 +41,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       <button
         className="absolute right-3 top-3 z-10 rounded-full bg-white/80 p-1.5 opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 hover:!opacity-100 hover:bg-rose-50 hover:text-rose-500"
         aria-label="Добавить в избранное"
-        onClick={handleAddToWishList}
+        onClick={handleWishList}
       >
-        <Heart className="h-4 w-4" strokeWidth={2} />
+        {isWishlisted(product.id) ? (
+          <Heart className="h-5 w-5" strokeWidth={2} fill="#FA8072" />
+        ) : (
+          <Heart className="h-5 w-5" strokeWidth={2} />
+        )}
       </button>
 
       <Link to={`/product/${product.id}`} className="flex-shrink-0">

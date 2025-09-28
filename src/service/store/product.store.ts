@@ -16,6 +16,7 @@ export interface IProductState {
     addToWishlist: (product: IProduct) => void;
     removeFromWishlist: (productId: number) => void;
     clearWishlist: () => void;
+    isWishlisted: (productId: number) => boolean;
 }
 
 export const useProductStore = create<IProductState>((set, get) => ({
@@ -59,6 +60,13 @@ export const useProductStore = create<IProductState>((set, get) => ({
     addToWishlist(product) {
         const currentStateWishList = get().wishlist;
 
+        /* const avoidDuplicate = currentStateWishList.find(item => item.id === product.id);
+
+        if (avoidDuplicate) {
+            console.log('дубликат отработал!')
+            return;
+        } */
+
         set({
             wishlist: [...currentStateWishList, product]
         })
@@ -74,5 +82,9 @@ export const useProductStore = create<IProductState>((set, get) => ({
         set({
             wishlist: []
         })
+    },
+
+    isWishlisted(productId) {
+        return get().wishlist.some(item => item.id === productId)
     },
 }))
