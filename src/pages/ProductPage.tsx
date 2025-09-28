@@ -11,14 +11,12 @@ import {
 } from 'lucide-react';
 import { useProductStore } from '../service/store/product.store';
 import { useCartStore } from '@/service/store/cart.store';
-/* import { useCartStore } from '@/store/useCartStore';  */
 
 export const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { products } = useProductStore();
+  const { products, addToWishlist } = useProductStore();
   const { addItem } = useCartStore();
-
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
@@ -56,6 +54,10 @@ export const ProductPage = () => {
   const hasHalfStar = (product.rating?.rate || 0) % 1 >= 0.5;
 
   const images = [product.image, product.image, product.image]; // Заглушка
+
+  const handleAddToWishList = () => {
+    addToWishlist(product);
+  };
 
   const handleAddtoCart = () => {
     addItem(
@@ -138,7 +140,10 @@ export const ProductPage = () => {
               )}
 
               {/* Кнопка избранного */}
-              <button className="absolute top-2 right-2 bg-white/80 rounded-full p-2 shadow-md hover:bg-white transition-colors">
+              <button
+                onClick={handleAddToWishList}
+                className="absolute top-2 right-2 bg-white/80 rounded-full p-2 shadow-md hover:bg-white transition-colors"
+              >
                 <Heart className="w-5 h-5 text-gray-600 hover:text-rose-500" />
               </button>
             </div>

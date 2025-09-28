@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Star, Heart } from 'lucide-react'; // Или любые другие иконки
 import type { IProduct } from '@/types/data-types';
 import { useCartStore } from '@/service/store/cart.store';
+import { useProductStore } from '@/service/store/product.store';
 
 interface ProductCardProps {
   product: IProduct;
@@ -9,6 +10,11 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { addItem } = useCartStore();
+  const { addToWishlist } = useProductStore();
+
+  const handleAddToWishList = () => {
+    addToWishlist(product);
+  };
 
   const handleAddToCart = () => {
     addItem({
@@ -31,6 +37,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       <button
         className="absolute right-3 top-3 z-10 rounded-full bg-white/80 p-1.5 opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 hover:!opacity-100 hover:bg-rose-50 hover:text-rose-500"
         aria-label="Добавить в избранное"
+        onClick={handleAddToWishList}
       >
         <Heart className="h-4 w-4" strokeWidth={2} />
       </button>

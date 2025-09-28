@@ -9,6 +9,7 @@ import { AuthModal } from './components/modal/auth-modal/AuthModal';
 import { ProtectedRouteElement } from './components/auth/ProtectedRouteElement';
 import { ProfilePage } from './pages/ProfilePage';
 import { CheckoutModal } from './components/checkout/CheckoutModal';
+import { WishlistPage } from './pages/WishListPage';
 
 const App = () => {
   const { isAuthOpen, isCheckout } = useUIstore();
@@ -34,6 +35,7 @@ const App = () => {
         <Route index element={<MainPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/wishlist" element={<WishlistPage />} />
 
         <Route
           path="/profile"
