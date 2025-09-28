@@ -1,7 +1,7 @@
 import type { TCartItemForUI } from "@/service/store/cart.store";
 import type { IProduct } from "@/types/data-types";
 
-export const tranformIntoCartItem = (product: IProduct): TCartItemForUI => {
+export const tranformIntoCartItem = (product: IProduct, quantity = 1): TCartItemForUI => {
     const { id, image, title, price } = product;
 
     return {
@@ -9,6 +9,6 @@ export const tranformIntoCartItem = (product: IProduct): TCartItemForUI => {
         image,
         title,
         price,
-        quantity: 1
+        quantity: quantity
     }
 }

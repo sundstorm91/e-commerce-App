@@ -87,7 +87,7 @@ export const useCartStore = create<ICartState>((set, get) => ({
         }
     },
 
-    addItem: (product) => {
+    addItem: (product, quantity= 1 ) => {
         const isAuth = useUserStore.getState().isAuth;
 
         if (!isAuth) {
@@ -106,13 +106,15 @@ export const useCartStore = create<ICartState>((set, get) => ({
         if (!findItem) {
             console.log('!findItem!')
             set({
-                items: [...get().items, tranformIntoCartItem(product)]
-            })
+            items: [...currentItems, {
+                ...tranformIntoCartItem(product, quantity),
+            }]
+        })
         } else {
             console.log('добавляем...')
             const updatedItems = currentItems.map(item =>
                 item.id === product.id
-                ? { ...item, quantity: item.quantity + 1 }
+                ? { ...item, quantity: item.quantity + quantity}
                 : item
             );
             set({ items: updatedItems });

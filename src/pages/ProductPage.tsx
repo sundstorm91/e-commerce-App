@@ -52,27 +52,25 @@ export const ProductPage = () => {
     );
   }
 
-  // Форматирование цены и рейтинга
-  const formattedPrice = new Intl.NumberFormat('ru-RU', {
-    style: 'currency',
-    currency: 'RUB',
-  }).format(product.price);
-
   const fullStars = Math.floor(product.rating?.rate || 0);
   const hasHalfStar = (product.rating?.rate || 0) % 1 >= 0.5;
 
   const images = [product.image, product.image, product.image]; // Заглушка
 
   const handleAddtoCart = () => {
-    addItem({
-      id: product.id,
-      title: product.title,
-      image: product.image,
-      category: product.category,
-      price: product.price,
-      description: product.description,
-    });
+    addItem(
+      {
+        id: product.id,
+        title: product.title,
+        image: product.image,
+        category: product.category,
+        price: product.price,
+        description: product.description,
+      },
+      quantity
+    );
   };
+
   const nextImage = () => {
     setSelectedImageIndex((prev) => (prev + 1) % images.length);
   };
@@ -203,7 +201,7 @@ export const ProductPage = () => {
 
               {/* Цена */}
               <div className="text-3xl font-bold text-gray-900 mb-6">
-                {formattedPrice}
+                {product.price} ₽
               </div>
             </div>
 

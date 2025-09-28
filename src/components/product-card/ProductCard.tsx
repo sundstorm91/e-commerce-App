@@ -21,11 +21,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       rating: product.rating,
     });
   };
-  // форматирование валюты
-  const formattedPrice = new Intl.NumberFormat('ru-RU', {
-    style: 'currency',
-    currency: 'RUB',
-  }).format(product.price);
 
   // Создаем массив звезд для рейтинга
   const fullStars = Math.floor(product.rating?.rate || 0);
@@ -81,7 +76,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
         <div className="mt-auto flex items-center justify-between">
           <span className="text-lg font-bold text-gray-900">
-            {formattedPrice}
+            {product.price} ₽
           </span>
           <button
             className="rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-blue-700 active:bg-blue-800"
