@@ -1,8 +1,6 @@
-// components/auth/LoginForm.tsx
 import { useState } from 'react';
 import { useUIstore } from '../../service/store/ui.store';
 import { useUserStore } from '../../service/store/user.store';
-import { useCartStore } from '@/service/store/cart.store';
 
 export const LoginForm = () => {
   const [username, setUserName] = useState('');
@@ -10,7 +8,6 @@ export const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { closeModal, openModal } = useUIstore();
-  /* const { loadCart } = useCartStore(); */
   const { login } = useUserStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -22,7 +19,7 @@ export const LoginForm = () => {
         username,
         password,
       });
-      /* await loadCart(); */
+
       closeModal('auth');
     } catch (error) {
       console.error('Login failed:', error);

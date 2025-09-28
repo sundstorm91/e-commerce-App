@@ -10,13 +10,14 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { useProductStore } from '../service/store/product.store';
+import { useCartStore } from '@/service/store/cart.store';
 /* import { useCartStore } from '@/store/useCartStore';  */
 
 export const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { products } = useProductStore();
-  /*   const { addItem } = useCartStore(); */ // Функция для добавления в корзину
+  const { addItem } = useCartStore();
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -74,6 +75,16 @@ export const ProductPage = () => {
     // Можно показать toast-уведомление
   }; */
 
+  const handleAddtoCart = () => {
+    addItem({
+      id: product.id,
+      title: product.title,
+      image: product.image,
+      category: product.category,
+      price: product.price,
+      description: product.description,
+    });
+  };
   const nextImage = () => {
     setSelectedImageIndex((prev) => (prev + 1) % images.length);
   };
@@ -244,7 +255,7 @@ export const ProductPage = () => {
               </div>
 
               <button
-                /* onClick={handleAddToCart} */
+                onClick={handleAddtoCart}
                 className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-3"
               >
                 <ShoppingCart className="w-6 h-6" />

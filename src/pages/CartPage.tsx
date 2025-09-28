@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { ShoppingCart, Plus, Minus, Trash2, ArrowRight } from 'lucide-react';
 import { useCartStore } from '../service/store/cart.store';
 import { useUIstore } from '../service/store/ui.store';
+import { useUserStore } from '@/service/store/user.store';
+import { CheckoutModal } from '@/components/checkout/CheckoutModal';
 
 export const CartPage = () => {
   const {
@@ -13,6 +15,7 @@ export const CartPage = () => {
     updateQuantity,
   } = useCartStore();
   const { openModal } = useUIstore();
+  const { isAuth, isLoading: isLoadingAuth } = useUserStore();
 
   // Если корзина пустая!
   if (cartItems.length === 0) {
@@ -79,7 +82,7 @@ export const CartPage = () => {
                       <div className="flex items-center border border-gray-300 rounded-lg">
                         <button
                           onClick={() => {
-                            updateQuantity(item.id, item.quantity);
+                            updateQuantity(item.id, item.quantity - 1);
                           }}
                           className="px-3 py-1 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                         >
@@ -152,6 +155,12 @@ export const CartPage = () => {
                 onClick={() => {
                   // Если пользователь не авторизован: openModal('auth')
                   // Если авторизован: переход на страницу оформления
+
+                  if (!isAuth) {
+                    openModal('auth', { mode: 'login' });
+                  } else {
+                    openModal('checkout');
+                  }
                 }}
                 className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
               >

@@ -8,9 +8,10 @@ import { useUIstore } from './service/store/ui.store';
 import { AuthModal } from './components/modal/auth-modal/AuthModal';
 import { ProtectedRouteElement } from './components/auth/ProtectedRouteElement';
 import { ProfilePage } from './pages/ProfilePage';
+import { CheckoutModal } from './components/checkout/CheckoutModal';
 
 const App = () => {
-  const { isAuthOpen } = useUIstore();
+  const { isAuthOpen, isCheckout } = useUIstore();
 
   const Layout = (): ReactElement => {
     return (
@@ -22,6 +23,7 @@ const App = () => {
         </main>
 
         {isAuthOpen && <AuthModal />}
+        {isCheckout && <CheckoutModal />}
       </div>
     );
   };

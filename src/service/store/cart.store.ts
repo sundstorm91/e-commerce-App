@@ -101,20 +101,22 @@ export const useCartStore = create<ICartState>((set, get) => ({
         const currentItems = get().items;
 
         const findItem = currentItems.find((item) => item.id === product.id);
-
+        console.log(findItem)
 
         if (!findItem) {
+            console.log('!findItem!')
             set({
                 items: [...get().items, tranformIntoCartItem(product)]
             })
         } else {
+            console.log('добавляем...')
             const updatedItems = currentItems.map(item =>
                 item.id === product.id
                 ? { ...item, quantity: item.quantity + 1 }
                 : item
             );
             set({ items: updatedItems });
-
+            console.log('добавили!')
         }
     },
 

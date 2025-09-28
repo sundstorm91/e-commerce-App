@@ -35,7 +35,7 @@ export const useUIstore = create<IUIStore>((set) => ({
                     isCartOpen: true, modalData: data
                 })
 
-                case 'checkout': /* ! modalData - нехватает типа! */
+                case 'checkout':
                     return set({
                         isCheckout: true, modalData: data
                     })
