@@ -87,7 +87,7 @@ export const useCartStore = create<ICartState>((set, get) => ({
         }
     },
 
-    addItem: (product, quantity= 1 ) => {
+    addItem: (product, quantity=1 ) => {
         const isAuth = useUserStore.getState().isAuth;
 
         if (!isAuth) {
@@ -128,7 +128,7 @@ export const useCartStore = create<ICartState>((set, get) => ({
         }))
     },
 
-    total: () => get().items.reduce((acc, curr) => acc + (curr.price + curr.quantity) , 0),
+    total: () => get().items.reduce((acc, curr) => acc + (curr.price * curr.quantity) , 0),
 
     updateQuantity(itemId, newQuantity) {
         const currentItems = get().items;
