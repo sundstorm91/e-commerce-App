@@ -1,15 +1,27 @@
-// components/ProductCard.tsx
 import { Link } from 'react-router-dom';
 import { Star, Heart } from 'lucide-react'; // Или любые другие иконки
 import type { IProduct } from '@/types/data-types';
+import { useCartStore } from '@/service/store/cart.store';
 
 interface ProductCardProps {
   product: IProduct;
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-  // форматирование валюты
+  const { addItem } = useCartStore();
 
+  const handleAddToCart = () => {
+    addItem({
+      id: product.id,
+      title: product.title,
+      image: product.image,
+      price: product.price,
+      category: product.category,
+      description: product.description,
+      rating: product.rating,
+    });
+  };
+  // форматирование валюты
   const formattedPrice = new Intl.NumberFormat('ru-RU', {
     style: 'currency',
     currency: 'RUB',
@@ -73,7 +85,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </span>
           <button
             className="rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-blue-700 active:bg-blue-800"
-            onClick={() => console.log('Add to cart', product.id)} // Заглушка для добавления в корзину
+            onClick={handleAddToCart}
           >
             В корзину
           </button>

@@ -61,19 +61,7 @@ export const ProductPage = () => {
   const fullStars = Math.floor(product.rating?.rate || 0);
   const hasHalfStar = (product.rating?.rate || 0) % 1 >= 0.5;
 
-  // Создаем массив изображений (в FakeAPI обычно одно изображение, но для демо сделаем несколько)
   const images = [product.image, product.image, product.image]; // Заглушка
-
-  /* const handleAddToCart = () => {
-    addItem({
-      id: product.id,
-      name: product.title,
-      price: product.price,
-      image: product.image,
-      quantity: quantity,
-    });
-    // Можно показать toast-уведомление
-  }; */
 
   const handleAddtoCart = () => {
     addItem({
