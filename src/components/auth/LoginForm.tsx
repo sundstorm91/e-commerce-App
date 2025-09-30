@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useUIstore } from '../../service/store/ui.store';
 import { useUserStore } from '../../service/store/user.store';
 
@@ -28,6 +28,11 @@ export const LoginForm = () => {
     }
   };
 
+  useEffect(() => {
+    setUserName('johnd');
+    setPassword('m38rmF$');
+  }, []); /* ! */
+
   return (
     <div className="w-96 p-6">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Вход в аккаунт</h2>
@@ -35,7 +40,7 @@ export const LoginForm = () => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Email johnd
+            Email
           </label>
           <input
             type="text"
@@ -48,7 +53,7 @@ export const LoginForm = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Пароль m38rmF$
+            Пароль
           </label>
           <input
             type="password"

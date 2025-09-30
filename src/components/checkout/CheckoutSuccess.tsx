@@ -1,5 +1,13 @@
+import { useCartStore } from '@/service/store/cart.store';
+import { useOrderStore } from '@/service/store/order.store';
+import { useEffect, useState } from 'react';
+
 export const CheckoutSuccess = () => {
-  const orderNumber = Math.random().toString(36).substr(2, 8).toUpperCase();
+  const { items } = useCartStore.getState();
+  const orderNumber = useOrderStore.getState().addOrder(items);
+
+  useCartStore.getState().clearCart();
+
   return (
     <div className="text-center p-8">
       <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -18,7 +26,7 @@ export const CheckoutSuccess = () => {
         </svg>
       </div>
       <div className="text-lg font-medium text-gray-900 mb-2">
-        Заказ №{orderNumber} выполнен!
+        Заказ {orderNumber}выполнен!
       </div>
     </div>
   );

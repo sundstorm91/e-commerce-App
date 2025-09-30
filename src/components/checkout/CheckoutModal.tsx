@@ -8,6 +8,7 @@ export type TStatus = 'pending' | 'success' | 'error';
 
 export const CheckoutModal = () => {
   const [status, setStatus] = useState<TStatus>('pending');
+
   const [timeLeft, setTimeLeft] = useState(15);
   const { closeModal } = useUIstore();
 
@@ -24,6 +25,7 @@ export const CheckoutModal = () => {
 
     return () => clearInterval(timer);
   }, [timeLeft]);
+
   return (
     <>
       <Modal onClose={() => closeModal('checkout')}>

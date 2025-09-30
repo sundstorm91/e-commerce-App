@@ -10,6 +10,7 @@ import { ProtectedRouteElement } from './components/auth/ProtectedRouteElement';
 import { ProfilePage } from './pages/ProfilePage';
 import { CheckoutModal } from './components/checkout/CheckoutModal';
 import { WishlistPage } from './pages/WishListPage';
+import { OrderPage } from './pages/OrderPage';
 
 const App = () => {
   const { isAuthOpen, isCheckout } = useUIstore();
@@ -36,7 +37,7 @@ const App = () => {
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/wishlist" element={<WishlistPage />} />
-
+        <Route path="/orders" element={<OrderPage />} />
         <Route
           path="/profile"
           element={
@@ -51,26 +52,3 @@ const App = () => {
 };
 
 export default App;
-
-/* {
-address: {
-geolocation: {
-lat: "-37.3159",
-long: "81.1496"
-},
-city: "kilcoole",
-street: "new road",
-number: 7682,
-zipcode: "12926-3874"
-},
-id: 1,
-email: "john@gmail.com",
-username: "johnd",
-password: "m38rmF$",
-name: {
-firstname: "john",
-lastname: "doe"
-},
-phone: "1-570-236-7033",
-__v: 0
-}, */

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Spinner } from '../spinner/spinner';
 
 export const CheckoutProgress = () => {
