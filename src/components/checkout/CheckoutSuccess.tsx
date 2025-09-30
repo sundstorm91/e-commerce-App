@@ -1,12 +1,20 @@
 import { useCartStore } from '@/service/store/cart.store';
 import { useOrderStore } from '@/service/store/order.store';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export const CheckoutSuccess = () => {
-  const { items } = useCartStore.getState();
-  const orderNumber = useOrderStore.getState().addOrder(items);
+  const [orderNumber, setOrderNumber] = useState('');
 
-  useCartStore.getState().clearCart();
+  // useRef флаг чтобы избежать дублирования в StrictMode
+  const hasOrderBeenCreated = useRef(false);
+
+  if (!hasOrderBeenCreated.current) {
+    const { items } = useCartStore.getState();
+    const newOrderNumber = useOrderStore.getState().addOrder(items);
+    setOrderNumber(newOrderNumber);
+    useCartStore.getState().clearCart();
+    hasOrderBeenCreated.current = true;
+  }
 
   return (
     <div className="text-center p-8">
@@ -26,7 +34,7 @@ export const CheckoutSuccess = () => {
         </svg>
       </div>
       <div className="text-lg font-medium text-gray-900 mb-2">
-        Заказ {orderNumber}выполнен!
+        Заказ {orderNumber} выполнен!
       </div>
     </div>
   );
