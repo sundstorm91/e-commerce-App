@@ -8,8 +8,8 @@ import en from '../../assets/svg/ca.svg';
 import { useLanguageStore } from '@/service/store/language.store';
 import { useUserStore } from '@/service/store/user.store';
 import { useUIstore } from '@/service/store/ui.store';
-import { Divide, UserIcon } from 'lucide-react';
-import cartLogo from '../../assets/svg/cart-2.svg';
+import { UserIcon, ShoppingCart } from 'lucide-react';
+import { useCartStore } from '@/service/store/cart.store';
 
 /* switch languages */
 interface UILanguages {
@@ -47,6 +47,9 @@ export const Header = () => {
   const { currentUser, isAuth, logout } = useUserStore();
   const { openModal } = useUIstore();
   const navigate = useNavigate();
+
+  /* ! */
+  const { items } = useCartStore();
 
   const selectedLanguages = languages.find(
     (lang) => lang.value === currentLanguage
@@ -170,11 +173,17 @@ export const Header = () => {
             }
           />
         </div>
+
         <NavLink
           to="/cart"
-          className=" text-white rounded-2xl p-2 mb-2 hover:bg-gray-100 "
+          className="relative rounded-2xl p-2 mb-2 hover:bg-blue-50 transition-all duration-200 group"
         >
-          <img src={cartLogo} alt="cart-logo" className="w-12 h-12" />
+          {items.length > 0 && (
+            <div className="absolute -top-1 -right-1 bg-blue-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center font-medium ring-2 ring-white">
+              {items.length}
+            </div>
+          )}
+          <ShoppingCart className="h-7 w-7 text-gray-600 group-hover:text-blue-600 group-hover:scale-110 transition-all duration-200" />
         </NavLink>
       </div>
     </header>

@@ -1,11 +1,10 @@
 import { useCartStore } from '@/service/store/cart.store';
 import { useOrderStore } from '@/service/store/order.store';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 export const CheckoutSuccess = () => {
   const [orderNumber, setOrderNumber] = useState('');
 
-  // useRef флаг чтобы избежать дублирования в StrictMode
   const hasOrderBeenCreated = useRef(false);
 
   if (!hasOrderBeenCreated.current) {
