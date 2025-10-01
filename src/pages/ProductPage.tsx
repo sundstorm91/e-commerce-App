@@ -21,14 +21,10 @@ export const ProductPage = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  // Находим продукт по ID из параметров URL
   const product = products.find((p) => p.id === Number(id));
 
-  // Если продукт не найден в сторе, возможно, нужно загрузить его отдельно
   useEffect(() => {
     if (!product && id) {
-      // Здесь можно добавить логику для загрузки одного продукта
-      // например, ProductsService.getById(Number(id))
       console.log('Product not found in store, need to fetch individually');
     }
   }, [product, id]);
