@@ -35,7 +35,18 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<MainPage />} />
+        <Route
+          index
+          element={
+            <ErrorBoundary
+              fallback={
+                <ErrorFallback message="Ошибка загрузки страницы товаров" />
+              }
+            >
+              <MainPage />
+            </ErrorBoundary>
+          }
+        />
         <Route
           path="/product/:id"
           element={
@@ -48,9 +59,40 @@ const App = () => {
             </ErrorBoundary>
           }
         />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/wishlist" element={<WishlistPage />} />
-        <Route path="/orders" element={<OrderPage />} />
+        <Route
+          path="/cart"
+          element={
+            <ErrorBoundary
+              fallback={<ErrorFallback message="Ошибка корзины" />}
+            >
+              <CartPage /> {/* Защита от неожиданного */}
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/wishlist"
+          element={
+            <ErrorBoundary
+              fallback={
+                <ErrorFallback message="Ошибка загрузки страницы желаний" />
+              }
+            >
+              <WishlistPage />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <ErrorBoundary
+              fallback={
+                <ErrorFallback message="Ошибка загрузки страницы заказов" />
+              }
+            >
+              <OrderPage />
+            </ErrorBoundary>
+          }
+        />
         <Route
           path="/profile"
           element={
