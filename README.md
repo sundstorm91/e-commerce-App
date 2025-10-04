@@ -35,8 +35,12 @@ text
 🌀 Error Boundaries
 
 Stage 3: Полировка & Deploy
-text
-⚡ Performance оптимизация
-🎨 UI/UX улучшения
-🐛 Багфиксы
-🚀 Деплой и тестирование
+
+1. React Hook Form + Zod (Forms)
+2. Анимации/скелетоны (UI polish)
+   3.⚡ Performance оптимизация
+3. 🎨 UI/UX улучшения
+4. 🐛 Багфиксы
+5. Jest + RTL (Testing)
+
+6. Deploy!

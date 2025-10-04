@@ -10,6 +10,8 @@ import { useUserStore } from '@/service/store/user.store';
 import { useUIstore } from '@/service/store/ui.store';
 import { UserIcon, ShoppingCart } from 'lucide-react';
 import { useCartStore } from '@/service/store/cart.store';
+import { useQuery } from '@tanstack/react-query';
+import { ProductsService } from '@/service/api/products';
 
 /* switch languages */
 interface UILanguages {
@@ -43,6 +45,10 @@ const profileOptions = {
 };
 
 export const Header = () => {
+  const { data: products } = useQuery({
+    queryKey: ['products'],
+    queryFn: () => ProductsService.getAll(),
+  });
   const { currentLanguage, setLanguage } = useLanguageStore();
   const { currentUser, isAuth, logout } = useUserStore();
   const { openModal } = useUIstore();
@@ -70,7 +76,7 @@ export const Header = () => {
         </NavLink>
 
         <div className="relative max-w-lg mx-6">
-          <Search />
+          <Search products={products!} />
         </div>
 
         <div className="flex items-center justify-end space-x-4">

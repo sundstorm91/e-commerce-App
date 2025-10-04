@@ -2,6 +2,8 @@ import { ProductCard } from '@/components/product-card/ProductCard';
 import { Spinner } from '@/components/spinner/spinner';
 import { useQuery } from '@tanstack/react-query';
 import { ProductsService } from '@/service/api/products';
+import { useSearchParams } from 'react-router-dom';
+import { useMemo } from 'react';
 
 export const MainPage: React.FC = () => {
   const {
