@@ -31,7 +31,7 @@ Stage 2: Оптимизация
 text
 🔄 TanStack Query для данных
 🔄 Кэширование
-🌀 Пагинация/поиск товаров
+🌀 Поиск товаров
 🌀 Error Boundaries
 
 Stage 3: Полировка & Deploy
