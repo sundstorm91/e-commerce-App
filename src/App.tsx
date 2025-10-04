@@ -1,4 +1,4 @@
-import { useState, type ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import { Header } from './components/app-header/Header';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { MainPage } from './pages/MainPage';
@@ -11,6 +11,8 @@ import { ProfilePage } from './pages/ProfilePage';
 import { CheckoutModal } from './components/checkout/CheckoutModal';
 import { WishlistPage } from './pages/WishListPage';
 import { OrderPage } from './pages/OrderPage';
+import { ErrorFallback } from './components/ui/ErrorBoundary/ErrorFallback';
+import ErrorBoundary from './components/ui/ErrorBoundary/ErrorBoundary';
 
 const App = () => {
   const { isAuthOpen, isCheckout } = useUIstore();
@@ -34,7 +36,18 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<MainPage />} />
-        <Route path="/product/:id" element={<ProductPage />} />
+        <Route
+          path="/product/:id"
+          element={
+            <ErrorBoundary
+              fallback={
+                <ErrorFallback message="Ошибка загрузки страницы товара" />
+              }
+            >
+              <ProductPage />
+            </ErrorBoundary>
+          }
+        />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/orders" element={<OrderPage />} />
