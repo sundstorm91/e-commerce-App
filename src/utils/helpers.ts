@@ -12,3 +12,4 @@ export const tranformIntoCartItem = (product: IProduct, quantity = 1): TCartItem
         quantity: quantity
     }
 }
+

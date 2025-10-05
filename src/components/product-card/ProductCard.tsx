@@ -3,12 +3,16 @@ import { Star, Heart } from 'lucide-react'; // Или любые другие и
 import type { IProduct } from '@/types/data-types';
 import { useCartStore } from '@/service/store/cart.store';
 import { useProductStore } from '@/service/store/product.store';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface ProductCardProps {
   product: IProduct;
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
+  /* перевод! */
+  const { t, tProduct } = useTranslation();
+
   const { addItem } = useCartStore();
   const { addToWishlist, removeFromWishlist, isWishlisted } = useProductStore();
 
@@ -97,7 +101,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             className="rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-blue-700 active:bg-blue-800"
             onClick={handleAddToCart}
           >
-            В корзину
+            {t('common.addToCart')}
           </button>
         </div>
       </div>
