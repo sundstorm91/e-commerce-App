@@ -11,44 +11,37 @@ import {
 } from 'lucide-react';
 import { useProductStore } from '../service/store/product.store';
 import { useCartStore } from '@/service/store/cart.store';
+import { useQuery } from '@tanstack/react-query';
+import { ProductsService } from '@/service/api/products';
+import { Spinner } from '@/components/spinner/spinner';
 
 export const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
+  const productId = id ? parseInt(id) : -1;
   const navigate = useNavigate();
-  const { products, addToWishlist, removeFromWishlist, isWishlisted } =
-    useProductStore();
+  const { addToWishlist, removeFromWishlist, isWishlisted } = useProductStore();
   const { addItem } = useCartStore();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const {
+    data: product,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['product', productId],
+    queryFn: () => ProductsService.getById(productId),
+  });
 
-  // Находим продукт по ID из параметров URL
-  const product = products.find((p) => p.id === Number(id));
+  if (isLoading) {
+    return <Spinner />;
+  }
 
-  // Если продукт не найден в сторе, возможно, нужно загрузить его отдельно
-  useEffect(() => {
-    if (!product && id) {
-      // Здесь можно добавить логику для загрузки одного продукта
-      // например, ProductsService.getById(Number(id))
-      console.log('Product not found in store, need to fetch individually');
-    }
-  }, [product, id]);
+  if (error) {
+    return <div>Ошибка... {error.message}</div>;
+  }
 
   if (!product) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Товар не найден
-          </h2>
-          <Link
-            to="/"
-            className="text-blue-600 hover:text-blue-800 font-medium"
-          >
-            Вернуться на главную
-          </Link>
-        </div>
-      </div>
-    );
+    return <NotFoundProduct />;
   }
 
   const fullStars = Math.floor(product.rating?.rate || 0);
@@ -260,6 +253,21 @@ export const ProductPage = () => {
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+};
+
+const NotFoundProduct = () => {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          Товар не найден
+        </h2>
+        <Link to="/" className="text-blue-600 hover:text-blue-800 font-medium">
+          Вернуться на главную
+        </Link>
       </div>
     </div>
   );

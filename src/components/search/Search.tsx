@@ -1,36 +1,50 @@
+import type { IProduct } from '@/types/data-types';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export const Search = () => {
-  const [query, setQuery] = useState('');
+interface ISearchInputProps {
+  products: IProduct[];
+}
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    console.log('поиск товара отработает!');
-    /* делаем запрос! */
-  };
+export const Search: React.FC<ISearchInputProps> = ({ products }) => {
+  const [inputProduct, setInputProduct] = useState('');
+  const navigate = useNavigate();
+
+  const filteredProducts = products
+    ?.filter(
+      (itemProduct) =>
+        itemProduct.title.toLowerCase().includes(inputProduct.toLowerCase()) ||
+        []
+    )
+    .slice(0, 5);
 
   return (
-    <form className="flex gap-2 m-2">
+    <div className="relative">
       <input
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        type="text"
-        className="px-4 py-2 border border-gray-300 rounded-md focus: focus: ring-blue-200 focus:ring-opacity-50 shadow-sm"
+        value={inputProduct}
+        onChange={(e) => setInputProduct(e.target.value)}
         placeholder="Введите товар..."
+        className="px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-200 focus:ring-opacity-50 shadow-sm"
       />
-      <button onClick={handleSubmit} disabled={!query}>
-        <SearchIcon />
-      </button>
-    </form>
+
+      {/* DropDown */}
+      {products && filteredProducts?.length > 0 && inputProduct && (
+        <div className="absolute top-full left-0 right-0 bg-white border border-gray-300 shadow-lg z-10">
+          {filteredProducts?.map((item) => (
+            <div
+              key={item.id}
+              className="p-2 hover:bg-gray-100 cursor-pointer flex items-center"
+              onClick={() => {
+                navigate(`/product/${item.id}`);
+                setInputProduct('');
+              }}
+            >
+              <img src={item.image} alt={item.title} className="w-8 h-8 mr-2" />
+              <span>{item.title}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
-
-const SearchIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-    <path
-      d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-      stroke="currentColor"
-      strokeWidth="2"
-    />
-  </svg>
-);
