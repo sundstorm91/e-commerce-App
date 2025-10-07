@@ -57,7 +57,8 @@
     "myProfile": "Мой профиль",
     "myOrders": "Мои заказы",
     "favorites": "Избранное",
-    "exit": "Выход"
+    "exit": "Выход",
+    "enterProduct": "Введите товар..."
   },
   "product": {
     "products": "Товары",

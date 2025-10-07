@@ -57,7 +57,8 @@
     "myProfile": "My Profile",
     "myOrders": "My Orders",
     "favorites": "Favorites",
-    "exit": "Exit"
+    "exit": "Exit",
+    "enterProduct": "Enter product..."
   },
   "product": {
     "products": "Products",
