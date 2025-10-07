@@ -27,8 +27,8 @@
     "apply": "Apply",
     "reset": "Reset",
     "back": "Back",
-    "main": "Main"
-
+    "main": "Main",
+    "modalExit": "Close"
   },
   "reg": {
     "name": "username",

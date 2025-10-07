@@ -1,3 +1,4 @@
+import { useTranslation } from '@/hooks/useTranslation';
 import { Portal } from '../portal/Portal';
 
 interface IModalProps {
@@ -6,6 +7,8 @@ interface IModalProps {
 }
 
 export const Modal = ({ onClose, children }: IModalProps) => {
+  const { t } = useTranslation();
+
   return (
     <Portal>
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
@@ -16,7 +19,7 @@ export const Modal = ({ onClose, children }: IModalProps) => {
               onClick={onClose}
               className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium transition-colors"
             >
-              Закрыть
+              {t('common.modalExit')}
             </button>
           </div>
         </div>
