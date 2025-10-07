@@ -28,19 +28,13 @@ text
 
 Stage 2: Оптимизация
 
-text
-🔄 TanStack Query для данных
-🔄 Кэширование
-🌀 Поиск товаров
-🌀 Error Boundaries
+✅ TanStack Query для данных
+✅ Кэширование
+✅ Поиск товаров
+✅ Error Boundaries
 
 Stage 3: Полировка & Deploy
+✅ 1. Переключение языка 2. React Hook Form + Zod (Forms) 3. Анимации/скелетоны (UI polish)
+3.1⚡ Performance оптимизация 4. 🎨 UI/UX улучшения 5. 🐛 Багфиксы 6. Jest + RTL (Testing)
 
-1. React Hook Form + Zod (Forms)
-2. Анимации/скелетоны (UI polish)
-   3.⚡ Performance оптимизация
-3. 🎨 UI/UX улучшения
-4. 🐛 Багфиксы
-5. Jest + RTL (Testing)
-
-6. Deploy!
+7. Deploy!

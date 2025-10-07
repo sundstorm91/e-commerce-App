@@ -2,8 +2,10 @@
 import { useState } from 'react';
 import { useUIstore } from '../../service/store/ui.store';
 import { useUserStore } from '../../service/store/user.store';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export const RegisterForm = () => {
+  const { t } = useTranslation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,12 +30,14 @@ export const RegisterForm = () => {
 
   return (
     <div className="w-96 p-6">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Регистрация</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        {t('header.signup')}
+      </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Имя
+            {t('header.username')}
           </label>
           <input
             type="text"
@@ -59,7 +63,7 @@ export const RegisterForm = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Пароль
+            {t('header.pass')}
           </label>
           <input
             type="password"
@@ -75,17 +79,17 @@ export const RegisterForm = () => {
           disabled={isLoading}
           className="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-green-700 disabled:opacity-50 transition-colors"
         >
-          {isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
+          {isLoading ? t('header.registring') : t('header.signup')}
         </button>
       </form>
 
       <div className="mt-4 text-center">
-        <span className="text-gray-600">Уже есть аккаунт? </span>
+        <span className="text-gray-600"> {t('header.haveAccount')} </span>
         <button
           onClick={() => openModal('auth', { mode: 'login', email })}
           className="text-blue-600 hover:text-blue-800 font-medium"
         >
-          Войти
+          {t('header.login')}
         </button>
       </div>
     </div>

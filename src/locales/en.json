@@ -25,7 +25,15 @@
     "filter": "Filter",
     "sort": "Sort",
     "apply": "Apply",
-    "reset": "Reset"
+    "reset": "Reset",
+    "back": "Back",
+    "main": "Main"
+
+  },
+  "reg": {
+    "name": "username",
+    "pass": "password",
+    "registration": "Registration"
   },
   "header": {
     "home": "Home",
@@ -36,7 +44,20 @@
     "profile": "Profile",
     "login": "Login",
     "logout": "Logout",
-    "signup": "Sign Up"
+    "signup": "Sign Up",
+    "username": "Username",
+    "pass":"password",
+    "auth": "Authorization",
+    "loggingIn":"Loggining..",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have Account?",
+    "registring": "Registering...",
+    "personalData": "Personal Data",
+    "mySections": "My Sections",
+    "myProfile": "My Profile",
+    "MyOrders": "My Orders",
+    "Favorites": "Favorites",
+    "exit": "Exit"
   },
   "product": {
     "products": "Products",
@@ -66,7 +87,14 @@
     "updateCart": "Update Cart",
     "cartSummary": "Cart Summary",
     "estimatedTotal": "Estimated Total",
-    "checkout": "Checkout"
+    "checkout": "Checkout",
+    "addProduct": "Add items in cart",
+    "goodsworth":"goods worth",
+    "products":"Products",
+    "delivery": "Delivery",
+    "free": "Free",
+    "promo": "Enter the promo code",
+    "orderinit": "Place an order"
   },
   "filters": {
     "categories": "Categories",
@@ -93,7 +121,11 @@
     "paymentMethods": "Payment Methods",
     "wishlist": "Wishlist",
     "notifications": "Notifications",
-    "settings": "Settings"
+    "settings": "Settings",
+    "myOrders": "My Orders",
+    "myFav": "Favorites",
+    "mySupport": "Support",
+    "exit": "Exit"
   },
   "messages": {
     "addedToCart": "Product added to cart",
@@ -104,5 +136,31 @@
     "loginRequired": "Login required",
     "searchNoResults": "No results found for your search",
     "tryDifferentKeywords": "Try different keywords"
+  },
+  "orders": {
+
+    "noOrders": "You don't have any orders yet.",
+    "firstBuy": "Make your first purchase to see your order history here",
+    "startShop": "Start Shopping",
+    "clearAll": "Clear All",
+    "moreDetails": "More Details",
+    "product": "product",
+    "inThisCategory": "in this category",
+    "ed.": "",
+    "mn.": "s",
+    "continueBuy": "Сontinue Shopping",
+    "goCart": "Go to Cart",
+    "order": "order",
+    "Order": "Order",
+    "repeatOrder": "Repeat Order",
+    "done": "Done",
+    "pending": "Pending",
+    "cancelled": "Cancelled"
+  },
+  "favorites": {
+    "noFav": "You don't have any favorites yet.",
+    "firstFav": "Add products by clicking ♡ in the product cards",
+    "startShop": "Start Shopping",
+    "fav": "Favorites"
   }
 }

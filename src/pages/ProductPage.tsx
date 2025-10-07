@@ -14,8 +14,11 @@ import { useCartStore } from '@/service/store/cart.store';
 import { useQuery } from '@tanstack/react-query';
 import { ProductsService } from '@/service/api/products';
 import { Spinner } from '@/components/spinner/spinner';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export const ProductPage = () => {
+  const { t, tProduct } = useTranslation();
+
   const { id } = useParams<{ id: string }>();
   const productId = id ? parseInt(id) : -1;
   const navigate = useNavigate();
@@ -89,11 +92,11 @@ export const ProductPage = () => {
             className="flex items-center text-gray-600 hover:text-gray-900 mb-4"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
-            Назад
+            {t('common.back')}
           </button>
           <div className="text-sm text-gray-500">
             <Link to="/" className="hover:text-gray-900">
-              Главная
+              {t('common.main')}
             </Link>
             <span className="mx-2">/</span>
 
@@ -198,7 +201,8 @@ export const ProductPage = () => {
                   ))}
                 </div>
                 <span className="text-lg text-gray-600">
-                  {product.rating?.rate} ({product.rating?.count} отзывов)
+                  {product.rating?.rate} ({product.rating?.count}{' '}
+                  {t('product.reviews')})
                 </span>
               </div>
 
@@ -211,10 +215,11 @@ export const ProductPage = () => {
             {/* Описание */}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Описание
+                {t('product.description')}
               </h3>
               <p className="text-gray-700 leading-relaxed">
-                {product.description}
+                {/* {product.description} */}
+                {tProduct(product.id)}
               </p>
             </div>
 
@@ -222,7 +227,7 @@ export const ProductPage = () => {
             <div className="border-t pt-6">
               <div className="flex items-center gap-4 mb-6">
                 <label className="text-lg font-medium text-gray-900">
-                  Количество:
+                  {t('common.quantity')}:
                 </label>
                 <div className="flex items-center border rounded-lg">
                   <button
@@ -248,7 +253,7 @@ export const ProductPage = () => {
                 className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-3"
               >
                 <ShoppingCart className="w-6 h-6" />
-                Добавить в корзину
+                {t('cart.addProduct')}
               </button>
             </div>
           </div>

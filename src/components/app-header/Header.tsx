@@ -12,6 +12,7 @@ import { UserIcon, ShoppingCart } from 'lucide-react';
 import { useCartStore } from '@/service/store/cart.store';
 import { useQuery } from '@tanstack/react-query';
 import { ProductsService } from '@/service/api/products';
+import { useTranslation } from '@/hooks/useTranslation';
 
 /* switch languages */
 interface UILanguages {
@@ -116,7 +117,6 @@ export const Header = () => {
           />
 
           <div className="h-6 w-px bg-gray-300"></div>
-          <div>{isAuth ? 'true' : 'false'}</div>
           <DropdownList
             options={
               isAuth ? profileOptions.authorized : profileOptions.unauthorized

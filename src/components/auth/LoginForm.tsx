@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useUIstore } from '../../service/store/ui.store';
 import { useUserStore } from '../../service/store/user.store';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export const LoginForm = () => {
+  const { t } = useTranslation();
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +37,9 @@ export const LoginForm = () => {
 
   return (
     <div className="w-96 p-6">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Вход в аккаунт</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        {t('header.auth')}
+      </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -53,7 +57,7 @@ export const LoginForm = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Пароль
+            {t('header.pass')}
           </label>
           <input
             type="password"
@@ -69,17 +73,17 @@ export const LoginForm = () => {
           disabled={isLoading}
           className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
         >
-          {isLoading ? 'Вход...' : 'Войти'}
+          {isLoading ? t('header.loggingIn') : t('header.login')}
         </button>
       </form>
 
       <div className="mt-4 text-center">
-        <span className="text-gray-600">Ещё нет аккаунта? </span>
+        <span className="text-gray-600">{t('header.noAccount')} </span>
         <button
           onClick={() => openModal('auth', { mode: 'register' })}
           className="text-blue-600 hover:text-blue-800 font-medium"
         >
-          Зарегистрироваться
+          {t('header.signup')}
         </button>
       </div>
     </div>

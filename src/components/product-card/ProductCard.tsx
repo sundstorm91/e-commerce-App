@@ -90,7 +90,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </div>
 
         <p className="mb-4 line-clamp-2 text-xs text-gray-600 flex-1">
-          {product.description}
+          {tProduct(product.id)}
         </p>
 
         <div className="mt-auto flex items-center justify-between">

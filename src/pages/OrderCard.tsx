@@ -1,3 +1,4 @@
+import { useTranslation } from '@/hooks/useTranslation';
 import type { IOrder } from '@/service/store/order.store';
 
 interface IOrderProps {
@@ -5,13 +6,15 @@ interface IOrderProps {
 }
 
 export const OrderCard: React.FC<IOrderProps> = ({ order }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6 hover:shadow-md transition-shadow">
       {/* Заголовок заказа */}
       <div className="flex justify-between items-start mb-4 pb-4 border-b border-gray-100">
         <div>
           <h3 className="text-lg font-semibold text-gray-900">
-            Заказ #{order.id}
+            {t('orders.Order')} #{order.id}
           </h3>
           <p className="text-gray-600 text-sm mt-1">
             {new Date(order.date).toLocaleDateString('ru-RU', {
@@ -25,7 +28,7 @@ export const OrderCard: React.FC<IOrderProps> = ({ order }) => {
         </div>
         <div className="text-right">
           <p className="text-xl font-bold text-gray-900">
-            ${order.total.toFixed(2)}
+            ₽{order.total.toFixed(2)}
           </p>
           <span
             className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mt-1 ${
@@ -36,9 +39,9 @@ export const OrderCard: React.FC<IOrderProps> = ({ order }) => {
                   : 'bg-red-100 text-red-800'
             }`}
           >
-            {order.status === 'completed' && 'Завершен'}
-            {order.status === 'pending' && 'В обработке'}
-            {order.status === 'cancelled' && 'Отменен'}
+            {order.status === 'completed' && t('orders.done')}
+            {order.status === 'pending' && t('orders.pending')}
+            {order.status === 'cancelled' && t('orders.cancelled')}
           </span>
         </div>
       </div>
@@ -46,7 +49,7 @@ export const OrderCard: React.FC<IOrderProps> = ({ order }) => {
       {/* Список товаров */}
       <div className="mb-4">
         <h4 className="font-medium text-gray-900 mb-3">
-          Товары ({order.items.length})
+          {t('cart.products')} ({order.items.length})
         </h4>
         <div className="space-y-3">
           {order.items.map((item) => (
@@ -64,14 +67,16 @@ export const OrderCard: React.FC<IOrderProps> = ({ order }) => {
                   {item.title}
                 </p>
                 <p className="text-sm text-gray-600 mt-1">
-                  ${item.price} × {item.quantity}
+                  ₽{item.price} × {item.quantity}
                 </p>
               </div>
               <div className="text-right">
                 <p className="text-sm font-semibold text-gray-900">
-                  ${(item.price * item.quantity).toFixed(2)}
+                  ₽{(item.price * item.quantity).toFixed(2)}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">Итого</p>
+                <p className="text-xs text-gray-500 mt-1">
+                  {t('common.total')}
+                </p>
               </div>
             </div>
           ))}
@@ -81,10 +86,10 @@ export const OrderCard: React.FC<IOrderProps> = ({ order }) => {
       {/* Кнопки действий */}
       <div className="flex justify-end space-x-3 pt-4 border-t border-gray-100">
         <button className="px-4 py-2 text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors">
-          Повторить заказ
+          {t('orders.repeatOrder')}
         </button>
         <button className="px-4 py-2 text-gray-600 hover:text-gray-800 text-sm font-medium transition-colors">
-          Подробнее
+          {t('orders.moreDetails')}
         </button>
       </div>
     </div>
