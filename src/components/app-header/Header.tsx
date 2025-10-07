@@ -32,20 +32,21 @@ interface ProfileOption {
   value: 'login' | 'register' | 'logout' | 'profile' | 'orders' | 'wishlist';
 }
 
-const profileOptions = {
-  unauthorized: [
-    { label: 'Войти', value: 'login' } as ProfileOption,
-    { label: 'Зарегистрироваться', value: 'register' } as ProfileOption,
-  ],
-  authorized: [
-    { label: 'Мой профиль', value: 'profile' } as ProfileOption,
-    { label: 'Мои заказы', value: 'orders' } as ProfileOption,
-    { label: 'Избранное', value: 'wishlist' } as ProfileOption,
-    { label: 'Выйти', value: 'logout' } as ProfileOption,
-  ],
-};
-
 export const Header = () => {
+  const { t } = useTranslation();
+  const profileOptions = {
+    unauthorized: [
+      { label: 'Войти', value: 'login' } as ProfileOption,
+      { label: 'Зарегистрироваться', value: 'register' } as ProfileOption,
+    ],
+    authorized: [
+      { label: t('header.myProfile'), value: 'profile' } as ProfileOption,
+      { label: t('header.myOrders'), value: 'orders' } as ProfileOption,
+      { label: t('header.favorites'), value: 'wishlist' } as ProfileOption,
+      { label: t('header.exit'), value: 'logout' } as ProfileOption,
+    ],
+  };
+
   const { data: products } = useQuery({
     queryKey: ['products'],
     queryFn: () => ProductsService.getAll(),

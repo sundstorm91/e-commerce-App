@@ -55,8 +55,8 @@
     "personalData": "Personal Data",
     "mySections": "My Sections",
     "myProfile": "My Profile",
-    "MyOrders": "My Orders",
-    "Favorites": "Favorites",
+    "myOrders": "My Orders",
+    "favorites": "Favorites",
     "exit": "Exit"
   },
   "product": {
