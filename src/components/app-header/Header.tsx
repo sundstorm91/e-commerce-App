@@ -13,6 +13,8 @@ import { useCartStore } from '@/service/store/cart.store';
 import { useQuery } from '@tanstack/react-query';
 import { ProductsService } from '@/service/api/products';
 import { useTranslation } from '@/hooks/useTranslation';
+import { useRef, useState } from 'react';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 /* switch languages */
 interface UILanguages {
@@ -33,6 +35,12 @@ interface ProfileOption {
 }
 
 export const Header = () => {
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  /* const dropdownRef = useRef<HTMLDivElement | null>(null); */
+
+  const [isPersonalDropDownOpen, setIsPersonalDropDownOpen] = useState(false);
+  /* const personalDataRef = useRef<HTMLDivElement | null>(null); */
+
   const { t } = useTranslation();
   const profileOptions = {
     unauthorized: [
@@ -51,6 +59,7 @@ export const Header = () => {
     queryKey: ['products'],
     queryFn: () => ProductsService.getAll(),
   });
+
   const { currentLanguage, setLanguage } = useLanguageStore();
   const { currentUser, isAuth, logout } = useUserStore();
   const { openModal } = useUIstore();
@@ -58,14 +67,36 @@ export const Header = () => {
 
   /* ! */
   const { items } = useCartStore();
-
   const selectedLanguages = languages.find(
     (lang) => lang.value === currentLanguage
   );
 
   const handleClickLanguages = (lang: UILanguages) => {
     setLanguage(lang.value);
+    setIsDropDownOpen(false);
   };
+
+  const languageRef = useOutsideClick(() => setIsDropDownOpen(false));
+  const personalDataRef = useOutsideClick(() =>
+    setIsPersonalDropDownOpen(false)
+  );
+
+  /* useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      console.log(`Клик по ${event.target}`);
+      console.log(`Текущий реф - ${dropdownRef.current}`);
+
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropDownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [setIsDropDownOpen]); */
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 m-5">
@@ -81,8 +112,13 @@ export const Header = () => {
           <Search products={products!} />
         </div>
 
-        <div className="flex items-center justify-end space-x-4">
+        <div
+          className="flex items-center justify-end space-x-4"
+          ref={languageRef}
+        >
           <DropdownList
+            isOpen={isDropDownOpen}
+            onToggle={() => setIsDropDownOpen(!isDropDownOpen)}
             options={languages}
             selectedOption={selectedLanguages!}
             onSelect={handleClickLanguages}
@@ -116,9 +152,13 @@ export const Header = () => {
               </div>
             )}
           />
+        </div>
+        <div className="h-6 w-px bg-gray-300"></div>
 
-          <div className="h-6 w-px bg-gray-300"></div>
+        <div ref={personalDataRef}>
           <DropdownList
+            isOpen={isPersonalDropDownOpen}
+            onToggle={() => setIsPersonalDropDownOpen(!isPersonalDropDownOpen)}
             options={
               isAuth ? profileOptions.authorized : profileOptions.unauthorized
             }
@@ -196,3 +236,14 @@ export const Header = () => {
     </header>
   );
 };
+
+/* const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef &&
+        !dropdownRef.current?.contains(event?.target as Node)
+      ) {
+        console.log('АГА');
+
+        setIsDropDownOpen(false);
+      }
+    }; */
