@@ -27,9 +27,8 @@ export const ProfilePage = () => {
             </div>
             <div>
               <label className="text-sm text-gray-600">Email</label>
-              <p className="font-medium">{user?.password}</p> {/* ?????? */}
+              <p className="font-medium">{user?.email}</p> {/* ?????? */}
             </div>
-            {/* Можно добавить больше полей */}
           </div>
         </div>
 
@@ -55,6 +54,7 @@ export const ProfilePage = () => {
               <ArrowRight className="h-4 w-4 text-gray-400" />
             </NavLink>
 
+            {/* Дополнительные ссылки */}
             {/* <NavLink
               to="/settings"
               className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors"
@@ -62,8 +62,6 @@ export const ProfilePage = () => {
               <span>⚙️ {t('user.settings')}</span>
               <ArrowRight className="h-4 w-4 text-gray-400" />
             </NavLink> */}
-
-            {/* Дополнительные ссылки */}
 
             {/* <button className="flex items-center justify-between w-full p-3 hover:bg-gray-50 rounded-lg transition-colors text-left">
               <span>📞 {t('user.mySupport')}</span>

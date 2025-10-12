@@ -162,5 +162,38 @@
     "firstFav": "Добавляйте товары, нажимая ♡ на карточках товаров",
     "startShop": "Начать покупки",
     "fav": "Избранное"
+  },
+  "auth": {
+    "signup": "Регистрация",
+    "login": "Войти",
+    "loggingIn": "Вход...",
+    "registring": "Регистрируем...",
+    "haveAccount": "Уже есть аккаунт?",
+    "noAccount": "Нет аккаунта?",
+    "username": "Имя пользователя",
+    "email": "Email",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "firstname": "Имя",
+    "rememberMe": "Запомнить меня",
+    "forgotPassword": "Забыли пароль?"
+  },
+  "validation": {
+    "usernameRequired": "Имя пользователя обязательно",
+    "usernameTooShort": "Имя слишком короткое",
+    "emailRequired": "Email обязателен",
+    "emailInvalid": "Некорректный email",
+    "passwordRequired": "Пароль обязателен",
+    "passwordTooShort": "Пароль должен содержать более 6 символов",
+    "passwordUppercase": "Пароль должен содержать заглавную букву",
+    "passwordNumber": "Пароль должен содержать цифры",
+    "passwordsNotMatch": "Пароли не совпадают",
+    "firstnameTooShort": "Имя слишком короткое",
+    "agreeToTerms": "Необходимо согласие с условиями"
+  },
+  "errors": {
+    "loginFailed": "Ошибка входа. Проверьте логин и пароль.",
+    "registrationFailed": "Ошибка регистрации. Попробуйте еще раз.",
+    "serverError": "Ошибка сервера"
   }
 }

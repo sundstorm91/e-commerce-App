@@ -163,5 +163,38 @@
     "firstFav": "Add products by clicking ♡ in the product cards",
     "startShop": "Start Shopping",
     "fav": "Favorites"
+  },
+  "auth": {
+    "signup": "Sign Up",
+    "login": "Log In",
+    "loggingIn": "Logging in...",
+    "registring": "Registering...",
+    "haveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstname": "First Name",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?"
+  },
+  "validation": {
+    "usernameRequired": "Username is required",
+    "usernameTooShort": "Username is too short",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email",
+    "passwordRequired": "Password is required",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "passwordUppercase": "Password must contain an uppercase letter",
+    "passwordNumber": "Password must contain a number",
+    "passwordsNotMatch": "Passwords do not match",
+    "firstnameTooShort": "First name is too short",
+    "agreeToTerms": "You must agree to the terms"
+  },
+  "errors": {
+    "loginFailed": "Login failed. Check your credentials.",
+    "registrationFailed": "Registration failed. Please try again.",
+    "serverError": "Server error"
   }
 }
