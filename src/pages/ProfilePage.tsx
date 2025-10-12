@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 export const ProfilePage = () => {
   const { t } = useTranslation();
   const user = useUserStore((state) => state.currentUser);
+  const { logout } = useUserStore();
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -68,10 +69,12 @@ export const ProfilePage = () => {
               <ArrowRight className="h-4 w-4 text-gray-400" />
             </button> */}
 
-            <button className="flex items-center justify-between w-full p-3 hover:bg-red-50 rounded-lg transition-colors text-left text-red-600">
-              <span>🚪 {t('user.exit')}</span>
-              <LogOut className="h-4 w-4" />
-            </button>
+            <NavLink to="/" onClick={logout}>
+              <button className="flex items-center justify-between w-full p-3 hover:bg-red-50 rounded-lg transition-colors text-left text-red-600">
+                <span>🚪 {t('user.exit')}</span>
+                <LogOut className="h-4 w-4" />
+              </button>
+            </NavLink>
           </div>
         </div>
       </div>

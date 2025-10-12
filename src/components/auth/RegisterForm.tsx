@@ -15,7 +15,7 @@ export const RegisterForm = () => {
     register: registerForm,
     handleSubmit,
     formState: { errors, isSubmitting },
-    setError, // ✅ Добавил setError для ручной установки ошибок
+    setError,
   } = useForm<RegisterFormData>({
     mode: 'onChange',
     defaultValues: {
@@ -37,7 +37,6 @@ export const RegisterForm = () => {
     const validationResult = registrationSchema.safeParse(data);
 
     if (!validationResult.success) {
-      // ✅ Вместо alert - устанавливаем ошибки в соответствующие поля
       validationResult.error.issues.forEach((issue) => {
         const fieldName = issue.path[0] as keyof RegisterFormData;
         setError(fieldName, {
@@ -55,10 +54,9 @@ export const RegisterForm = () => {
       closeModal('auth');
     } catch (error) {
       console.error('Registration failed:', error);
-      // ✅ Ошибку API тоже показываем в UI
       setError('root', {
         type: 'manual',
-        message: 'Ошибка регистрации. Попробуйте еще раз.',
+        message: t('errors.registrationFailed'),
       });
     } finally {
       setIsLoading(false);
@@ -68,7 +66,7 @@ export const RegisterForm = () => {
   return (
     <div className="w-96 p-6">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">
-        {t('header.signup')}
+        {t('auth.signup')}
       </h2>
 
       {/* ✅ Общая ошибка формы */}
@@ -81,7 +79,7 @@ export const RegisterForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            {t('header.username')}
+            {t('auth.username')}
           </label>
           <input
             {...registerForm('username')}
@@ -100,7 +98,7 @@ export const RegisterForm = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Email
+            {t('auth.email')}
           </label>
           <input
             {...registerForm('email')}
@@ -118,7 +116,7 @@ export const RegisterForm = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            {t('header.pass')}
+            {t('auth.password')}
           </label>
           <input
             type="password"
@@ -141,18 +139,18 @@ export const RegisterForm = () => {
           className="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-green-700 disabled:opacity-50 transition-colors"
         >
           {isLoading || isSubmitting
-            ? t('header.registring')
-            : t('header.signup')}
+            ? t('auth.registring')
+            : t('auth.signup')}{' '}
         </button>
       </form>
 
       <div className="mt-4 text-center">
-        <span className="text-gray-600"> {t('header.haveAccount')} </span>
+        <span className="text-gray-600"> {t('auth.haveAccount')} </span>{' '}
         <button
           onClick={() => openModal('auth', { mode: 'login' })}
           className="text-blue-600 hover:text-blue-800 font-medium"
         >
-          {t('header.login')}
+          {t('auth.login')}
         </button>
       </div>
     </div>

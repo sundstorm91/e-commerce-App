@@ -17,7 +17,7 @@ export const LoginForm = () => {
     setError,
     setValue,
   } = useForm<LoginFormData>({
-    mode: 'onChange', // Валидация при изменении
+    mode: 'onChange',
     defaultValues: {
       username: '',
       password: '',
@@ -26,7 +26,6 @@ export const LoginForm = () => {
 
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-
   const [isTyping, setIsTyping] = useState(false);
 
   const { closeModal, openModal } = useUIstore();
@@ -45,17 +44,12 @@ export const LoginForm = () => {
       console.error('Login failed:', error);
       setError('root', {
         type: 'manual',
-        message: 'Ошибка входа. Проверьте логин и пароль.',
+        message: t('errors.loginFailed'),
       });
     } finally {
       setIsLoading(false);
     }
   };
-
-  /* useEffect(() => {
-    setValue('username', 'johnd');
-    setValue('password', 'm38rmF$');
-  }, [setValue]);  */
 
   useEffect(() => {
     const typeText = async (field: 'username' | 'password', text: string) => {
@@ -81,7 +75,7 @@ export const LoginForm = () => {
   return (
     <div className="w-96 p-6">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">
-        {t('header.auth')}
+        {t('auth.login')}
       </h2>
 
       {/* Общая ошибка формы */}
@@ -94,11 +88,11 @@ export const LoginForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Имя пользователя
+            {t('auth.username')}
           </label>
           <input
             {...register('username', {
-              required: 'Имя пользователя обязательно',
+              required: t('validation.usernameRequired'),
             })}
             className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
               errors.username ? 'border-red-500 bg-red-50' : 'border-gray-300'
@@ -113,12 +107,12 @@ export const LoginForm = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            {t('header.pass')}
+            {t('auth.password')}
           </label>
           <input
             type="password"
             {...register('password', {
-              required: 'Пароль обязателен',
+              required: t('validation.passwordRequired'),
             })}
             className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
               errors.password ? 'border-red-500 bg-red-50' : 'border-gray-300'
@@ -136,17 +130,17 @@ export const LoginForm = () => {
           disabled={isSubmitting}
           className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
         >
-          {isSubmitting ? t('header.loggingIn') : t('header.login')}
+          {isSubmitting ? t('auth.loggingIn') : t('auth.login')}{' '}
         </button>
       </form>
 
       <div className="mt-4 text-center">
-        <span className="text-gray-600">{t('header.noAccount')} </span>
+        <span className="text-gray-600">{t('auth.noAccount')} </span>{' '}
         <button
           onClick={() => openModal('auth', { mode: 'register' })}
           className="text-blue-600 hover:text-blue-800 font-medium"
         >
-          {t('header.signup')}
+          {t('auth.signup')}
         </button>
       </div>
     </div>

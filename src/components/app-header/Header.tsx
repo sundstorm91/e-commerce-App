@@ -41,8 +41,8 @@ export const Header = () => {
   const { t } = useTranslation();
   const profileOptions = {
     unauthorized: [
-      { label: 'Войти', value: 'login' } as ProfileOption,
-      { label: 'Зарегистрироваться', value: 'register' } as ProfileOption,
+      { label: t('header.login'), value: 'login' } as ProfileOption,
+      { label: t('header.signup'), value: 'register' } as ProfileOption,
     ],
     authorized: [
       { label: t('header.myProfile'), value: 'profile' } as ProfileOption,
