@@ -13,7 +13,7 @@ import { useCartStore } from '@/service/store/cart.store';
 import { useQuery } from '@tanstack/react-query';
 import { ProductsService } from '@/service/api/products';
 import { useTranslation } from '@/hooks/useTranslation';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 /* switch languages */
@@ -36,10 +36,7 @@ interface ProfileOption {
 
 export const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-  /* const dropdownRef = useRef<HTMLDivElement | null>(null); */
-
   const [isPersonalDropDownOpen, setIsPersonalDropDownOpen] = useState(false);
-  /* const personalDataRef = useRef<HTMLDivElement | null>(null); */
 
   const { t } = useTranslation();
   const profileOptions = {
@@ -81,25 +78,8 @@ export const Header = () => {
     setIsPersonalDropDownOpen(false)
   );
 
-  /* useEffect(() => {
-    const handleClick = (event: MouseEvent) => {
-      console.log(`Клик по ${event.target}`);
-      console.log(`Текущий реф - ${dropdownRef.current}`);
-
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsDropDownOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, [setIsDropDownOpen]); */
-
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 m-5">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto gap-4 flex h-16 items-center justify-evenly px-4 sm:px-6 lg:px-8">
         <NavLink to="/" className="flex items-center space-x-2">
           <img src={iconShop} alt="logo-shop" className="h-8 w-8" />
