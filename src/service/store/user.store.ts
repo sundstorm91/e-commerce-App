@@ -30,7 +30,7 @@ interface IUserState {
     login: (credentials: ILoginCredentials) => Promise<void>;
     logout: () => void;
     register: (username: string,  password: string, email?: string) => void;
-    checkAuth?: () => void;
+    checkAuth: () => void;
 }
 
 export const useUserStore = create<IUserState>((set) => ({
