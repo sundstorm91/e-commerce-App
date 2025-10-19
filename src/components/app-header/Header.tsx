@@ -12,6 +12,9 @@ import { UserIcon, ShoppingCart } from 'lucide-react';
 import { useCartStore } from '@/service/store/cart.store';
 import { useQuery } from '@tanstack/react-query';
 import { ProductsService } from '@/service/api/products';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useState } from 'react';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 /* switch languages */
 interface UILanguages {
@@ -31,24 +34,29 @@ interface ProfileOption {
   value: 'login' | 'register' | 'logout' | 'profile' | 'orders' | 'wishlist';
 }
 
-const profileOptions = {
-  unauthorized: [
-    { label: 'Войти', value: 'login' } as ProfileOption,
-    { label: 'Зарегистрироваться', value: 'register' } as ProfileOption,
-  ],
-  authorized: [
-    { label: 'Мой профиль', value: 'profile' } as ProfileOption,
-    { label: 'Мои заказы', value: 'orders' } as ProfileOption,
-    { label: 'Избранное', value: 'wishlist' } as ProfileOption,
-    { label: 'Выйти', value: 'logout' } as ProfileOption,
-  ],
-};
-
 export const Header = () => {
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const [isPersonalDropDownOpen, setIsPersonalDropDownOpen] = useState(false);
+
+  const { t } = useTranslation();
+  const profileOptions = {
+    unauthorized: [
+      { label: t('header.login'), value: 'login' } as ProfileOption,
+      { label: t('header.signup'), value: 'register' } as ProfileOption,
+    ],
+    authorized: [
+      { label: t('header.myProfile'), value: 'profile' } as ProfileOption,
+      { label: t('header.myOrders'), value: 'orders' } as ProfileOption,
+      { label: t('header.favorites'), value: 'wishlist' } as ProfileOption,
+      { label: t('header.exit'), value: 'logout' } as ProfileOption,
+    ],
+  };
+
   const { data: products } = useQuery({
     queryKey: ['products'],
     queryFn: () => ProductsService.getAll(),
   });
+
   const { currentLanguage, setLanguage } = useLanguageStore();
   const { currentUser, isAuth, logout } = useUserStore();
   const { openModal } = useUIstore();
@@ -56,21 +64,29 @@ export const Header = () => {
 
   /* ! */
   const { items } = useCartStore();
-
   const selectedLanguages = languages.find(
     (lang) => lang.value === currentLanguage
   );
 
   const handleClickLanguages = (lang: UILanguages) => {
     setLanguage(lang.value);
+    setIsDropDownOpen(false);
   };
 
+  const languageRef = useOutsideClick(() => setIsDropDownOpen(false));
+  const personalDataRef = useOutsideClick(() =>
+    setIsPersonalDropDownOpen(false)
+  );
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 m-5">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto gap-4 flex h-16 items-center justify-evenly px-4 sm:px-6 lg:px-8">
         <NavLink to="/" className="flex items-center space-x-2">
           <img src={iconShop} alt="logo-shop" className="h-8 w-8" />
-          <span className="hidden font-bold text-xl sm:inline-block">
+          <span
+            className="hidden font-bold text-xl sm:inline-block"
+            data-testid="logo"
+          >
             FakeStore
           </span>
         </NavLink>
@@ -79,8 +95,13 @@ export const Header = () => {
           <Search products={products!} />
         </div>
 
-        <div className="flex items-center justify-end space-x-4">
+        <div
+          className="flex items-center justify-end space-x-4"
+          ref={languageRef}
+        >
           <DropdownList
+            isOpen={isDropDownOpen}
+            onToggle={() => setIsDropDownOpen(!isDropDownOpen)}
             options={languages}
             selectedOption={selectedLanguages!}
             onSelect={handleClickLanguages}
@@ -114,10 +135,13 @@ export const Header = () => {
               </div>
             )}
           />
+        </div>
+        <div className="h-6 w-px bg-gray-300"></div>
 
-          <div className="h-6 w-px bg-gray-300"></div>
-          <div>{isAuth ? 'true' : 'false'}</div>
+        <div ref={personalDataRef} data-testid="user-dropdown">
           <DropdownList
+            isOpen={isPersonalDropDownOpen}
+            onToggle={() => setIsPersonalDropDownOpen(!isPersonalDropDownOpen)}
             options={
               isAuth ? profileOptions.authorized : profileOptions.unauthorized
             }
@@ -157,7 +181,10 @@ export const Header = () => {
             renderTrigger={(isOpen) =>
               isAuth ? (
                 <div className="flex items-center gap-2 cursor-pointer p-2 rounded-md hover:bg-gray-100 transition-colors">
-                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-medium text-sm">
+                  <div
+                    className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-medium text-sm"
+                    data-testid="user-avatar"
+                  >
                     {currentUser?.username[0]?.toUpperCase()}
                   </div>
                   <span
@@ -183,6 +210,7 @@ export const Header = () => {
         <NavLink
           to="/cart"
           className="relative rounded-2xl p-2 mb-2 hover:bg-blue-50 transition-all duration-200 group"
+          data-testId="cart-link"
         >
           {items.length > 0 && (
             <div className="absolute -top-1 -right-1 bg-blue-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center font-medium ring-2 ring-white">
@@ -195,3 +223,14 @@ export const Header = () => {
     </header>
   );
 };
+
+/* const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef &&
+        !dropdownRef.current?.contains(event?.target as Node)
+      ) {
+        console.log('АГА');
+
+        setIsDropDownOpen(false);
+      }
+    }; */

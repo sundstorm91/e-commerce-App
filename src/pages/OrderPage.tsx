@@ -1,8 +1,10 @@
 import { useOrderStore } from '../service/store/order.store';
 import { Link } from 'react-router-dom';
 import { OrderCard } from './OrderCard';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export const OrderPage = () => {
+  const { t } = useTranslation();
   const { orders } = useOrderStore();
 
   if (orders.length === 0) {
@@ -15,16 +17,14 @@ export const OrderPage = () => {
             </svg>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            У вас пока нет заказов
+            {t('orders.noOrders')}
           </h2>
-          <p className="text-gray-600 mb-6">
-            Совершите первую покупку, чтобы увидеть здесь историю заказов
-          </p>
+          <p className="text-gray-600 mb-6">{t('orders.firstBuy')}</p>
           <Link
             to="/"
             className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Начать покупки
+            {t('orders.startShop')}
           </Link>
         </div>
       </div>
@@ -35,9 +35,11 @@ export const OrderPage = () => {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Мои заказы</h1>
+          <h1 className="text-3xl font-bold text-gray-900">
+            {t('user.myOrders')}
+          </h1>
           <p className="text-gray-600 mt-2">
-            {orders.length} заказ
+            {orders.length} {t('orders.order')}
             {orders.length % 10 === 1
               ? ''
               : orders.length % 10 >= 2 && orders.length % 10 <= 4
@@ -55,10 +57,10 @@ export const OrderPage = () => {
         {/* Навигация */}
         <div className="flex justify-center mt-8">
           <Link
-            to="/products"
+            to="/"
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Продолжить покупки
+            {t('orders.continueBuy')}
           </Link>
         </div>
       </div>

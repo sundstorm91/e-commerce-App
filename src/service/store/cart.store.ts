@@ -46,7 +46,8 @@ export const useCartStore = create<ICartState>((set, get) => ({
         if (!userId) {
             console.log('🔹 No userId - clearing cart');
             set({
-                items: []
+                items: [],
+                isLoading: false
             })
             return;
         }

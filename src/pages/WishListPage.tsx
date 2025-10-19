@@ -1,7 +1,9 @@
+import { useTranslation } from '@/hooks/useTranslation';
 import { useProductStore } from '@/service/store/product.store';
 import { Link } from 'react-router-dom';
 
 export const WishlistPage = () => {
+  const { t } = useTranslation();
   const { wishlist, removeFromWishlist, clearWishlist } = useProductStore();
 
   // Группировка товаров по категориям
@@ -30,16 +32,14 @@ export const WishlistPage = () => {
             </svg>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            В избранном пока пусто
+            {t('favorites.noFav')}
           </h2>
-          <p className="text-gray-600 mb-6">
-            Добавляйте товары, нажимая на ♡ в карточках товаров
-          </p>
+          <p className="text-gray-600 mb-6">{t('favorites.firstFav')}</p>
           <Link
-            to="/products"
+            to="/"
             className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Перейти к покупкам
+            {t('favorites.startShop')}
           </Link>
         </div>
       </div>
@@ -52,9 +52,11 @@ export const WishlistPage = () => {
         {/* Заголовок и кнопка очистки */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Избранное</h1>
+            <h1 className="text-3xl font-bold text-gray-900">
+              {t('favorites.fav')}
+            </h1>
             <p className="text-gray-600 mt-2">
-              {wishlist.length} товар
+              {wishlist.length} {t('orders.product')}
               {wishlist.length % 10 === 1
                 ? ''
                 : wishlist.length % 10 >= 2 && wishlist.length % 10 <= 4
@@ -66,7 +68,7 @@ export const WishlistPage = () => {
             onClick={clearWishlist}
             className="px-4 py-2 text-red-600 border border-red-300 rounded-lg hover:bg-red-50 transition-colors"
           >
-            Очистить всё
+            {t('orders.clearAll')}
           </button>
         </div>
 
@@ -83,14 +85,14 @@ export const WishlistPage = () => {
                   {category}
                 </h2>
                 <p className="text-gray-600 text-sm mt-1">
-                  {groupedByCategory[category].length} товар
+                  {groupedByCategory[category].length} {t('orders.product')}
                   {groupedByCategory[category].length % 10 === 1
                     ? ''
                     : groupedByCategory[category].length % 10 >= 2 &&
                         groupedByCategory[category].length % 10 <= 4
                       ? 'а'
                       : 'ов'}{' '}
-                  в этой категории
+                  {t('orders.inThisCategory')}
                 </p>
               </div>
 
@@ -113,14 +115,14 @@ export const WishlistPage = () => {
                             {product.title}
                           </h3>
                           <p className="text-lg font-semibold text-blue-600 mt-2">
-                            ${product.price}
+                            {product.price} ₽
                           </p>
                           <div className="flex justify-between items-center mt-4">
                             <Link
                               to={`/product/${product.id}`}
                               className="text-blue-600 hover:text-blue-800 text-sm"
                             >
-                              Подробнее
+                              {t('orders.moreDetails')}
                             </Link>
                             <button
                               onClick={() => removeFromWishlist(product.id)}
@@ -156,13 +158,13 @@ export const WishlistPage = () => {
             to="/"
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Продолжить покупки
+            {t('orders.continueBuy')}
           </Link>
           <Link
             to="/cart"
             className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
           >
-            Перейти в корзину
+            {t('orders.goCart')}
           </Link>
         </div>
       </div>

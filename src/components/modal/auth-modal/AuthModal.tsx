@@ -9,7 +9,9 @@ export const AuthModal = () => {
   const authData = modalData as IAuthModalData;
   return (
     <Modal onClose={() => closeModal('auth')}>
-      {authData.mode === 'login' ? <LoginForm /> : <RegisterForm />}
+      <div data-testid="auth-modal">
+        {authData.mode === 'login' ? <LoginForm /> : <RegisterForm />}
+      </div>
     </Modal>
   );
 };

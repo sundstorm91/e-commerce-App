@@ -4,37 +4,35 @@ import { ShoppingCart, Plus, Minus, Trash2, ArrowRight } from 'lucide-react';
 import { useCartStore } from '../service/store/cart.store';
 import { useUIstore } from '../service/store/ui.store';
 import { useUserStore } from '@/service/store/user.store';
-import { CheckoutModal } from '@/components/checkout/CheckoutModal';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export const CartPage = () => {
+  const { t } = useTranslation();
+
   const {
     items: cartItems,
-    isLoading,
     removeItem,
     total,
     updateQuantity,
   } = useCartStore();
   const { openModal } = useUIstore();
-  const { isAuth, isLoading: isLoadingAuth } = useUserStore();
+  const { isAuth } = useUserStore();
 
   // Если корзина пустая!
   if (cartItems.length === 0) {
-    console.log('НУЛЬ!', cartItems);
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="text-center max-w-md mx-auto">
           <ShoppingCart className="w-24 h-24 text-gray-300 mx-auto mb-6" />
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Корзина пуста
+            {t('cart.cartEmpty')}
           </h2>
-          <p className="text-gray-600 mb-8">
-            Добавьте товары в корзину, чтобы сделать заказ
-          </p>
+          <p className="text-gray-600 mb-8">{t('cart.addProduct')}</p>
           <Link
             to="/"
             className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Вернуться к покупкам
+            {t('cart.continueShopping')}
           </Link>
         </div>
       </div>
@@ -48,7 +46,7 @@ export const CartPage = () => {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Корзина</h1>
           <p className="text-gray-600 mt-2">
-            {cartItems.length} товаров на сумму {total()} ₽
+            {cartItems.length} {t('cart.goodsworth')} {total()} ₽
           </p>
         </div>
 
@@ -121,22 +119,22 @@ export const CartPage = () => {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 sticky top-4">
               <h2 className="text-xl font-bold text-gray-900 mb-6">
-                Итоги заказа
+                {t('cart.cartSummary')}
               </h2>
 
-              <div className="space-y-4 mb-6">
+              <div className="space-y-4 mb-6" data-testId="cart-count">
                 <div className="flex justify-between">
                   <span className="text-gray-600">
-                    Товары ({cartItems.length})
+                    {t('cart.products')} ({cartItems.length})
                   </span>
                   <span className="font-medium">{total()} ₽</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Доставка</span>
-                  <span className="font-medium">Бесплатно</span>
+                  <span className="text-gray-600">{t('cart.delivery')}</span>
+                  <span className="font-medium">{t('cart.free')}</span>
                 </div>
                 <div className="flex justify-between text-lg font-bold pt-4 border-t">
-                  <span>Итого</span>
+                  <span>{t('common.total')}</span>
                   <span>{total()} ₽</span>
                 </div>
               </div>
@@ -145,7 +143,7 @@ export const CartPage = () => {
               <div className="mb-6">
                 <input
                   type="text"
-                  placeholder="Введите промокод"
+                  placeholder={t('cart.promo')}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
@@ -164,7 +162,7 @@ export const CartPage = () => {
                 }}
                 className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
               >
-                Оформить заказ
+                {t('cart.orderinit')}
                 <ArrowRight className="w-5 h-5" />
               </button>
             </div>
