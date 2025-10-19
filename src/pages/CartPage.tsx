@@ -122,7 +122,7 @@ export const CartPage = () => {
                 {t('cart.cartSummary')}
               </h2>
 
-              <div className="space-y-4 mb-6">
+              <div className="space-y-4 mb-6" data-testId="cart-count">
                 <div className="flex justify-between">
                   <span className="text-gray-600">
                     {t('cart.products')} ({cartItems.length})

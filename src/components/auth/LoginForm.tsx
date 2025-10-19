@@ -97,6 +97,7 @@ export const LoginForm = () => {
             className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
               errors.username ? 'border-red-500 bg-red-50' : 'border-gray-300'
             }`}
+            data-testid="username-input"
           />
           {errors.username && (
             <p className="text-red-500 text-sm mt-1">
@@ -117,6 +118,7 @@ export const LoginForm = () => {
             className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
               errors.password ? 'border-red-500 bg-red-50' : 'border-gray-300'
             }`}
+            data-testid="password-input"
           />
           {errors.password && (
             <p className="text-red-500 text-sm mt-1">
@@ -129,6 +131,7 @@ export const LoginForm = () => {
           type="submit"
           disabled={isSubmitting}
           className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+          data-testid="login-submit-button"
         >
           {isSubmitting ? t('auth.loggingIn') : t('auth.login')}{' '}
         </button>
