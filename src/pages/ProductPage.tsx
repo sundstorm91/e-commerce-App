@@ -1,6 +1,6 @@
 // pages/ProductPage.tsx
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   Star,
   Heart,

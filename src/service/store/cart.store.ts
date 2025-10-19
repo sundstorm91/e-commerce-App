@@ -1,4 +1,4 @@
-import type { IProduct, ICartItemFromApi, ICart } from "@/types/data-types";
+import type { IProduct, ICartItemFromApi } from "@/types/data-types";
 import { create } from 'zustand';
 import { useUserStore } from "./user.store";
 import { CartService } from "@/api/cart";

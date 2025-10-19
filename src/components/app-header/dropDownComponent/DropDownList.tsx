@@ -1,5 +1,3 @@
-import { useRef, useState } from 'react';
-
 interface IDropDownProps<T> {
   onToggle?: () => void;
   isOpen?: boolean;

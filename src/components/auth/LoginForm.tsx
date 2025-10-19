@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useUIstore } from '../../service/store/ui.store';
 import { useUserStore } from '../../service/store/user.store';
@@ -25,8 +26,8 @@ export const LoginForm = () => {
   });
 
   const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isTyping, setIsTyping] = useState(false);
+  const [, setIsLoading] = useState(false);
+  const [, setIsTyping] = useState(false);
 
   const { closeModal, openModal } = useUIstore();
   const { login } = useUserStore();

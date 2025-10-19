@@ -11,9 +11,6 @@ vi.mock('../../api/cart.ts');
 vi.mock('../api/products.ts');
 
 const mockedUseUserStore = vi.mocked(useUserStore);
-const mockedCartService = vi.mocked(CartService);
-const mockedProductsService = vi.mocked(ProductsService);
-
 
 describe('loadCart', () => {
   beforeEach(() => {

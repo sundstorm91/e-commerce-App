@@ -1,14 +1,10 @@
 import { useUserStore } from '@/service/store/user.store';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useUIstore } from '@/service/store/ui.store';
 
 interface ProtectedRouteProps {
   onlyUnAuth?: boolean;
   children: React.ReactElement;
-}
-
-interface OnlyUnAuthProps {
-  component: React.ReactElement;
 }
 
 export const ProtectedRouteElement: React.FC<ProtectedRouteProps> = ({
