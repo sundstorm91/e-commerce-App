@@ -33,7 +33,7 @@ export const useProductStore = create<IProductState>((set, get) => ({
 
         try {
             const products = await ProductsService.getAll();
-            console.log(products)
+
             set({
                 products: products,
                 isLoading: false,
@@ -59,13 +59,6 @@ export const useProductStore = create<IProductState>((set, get) => ({
 
     addToWishlist(product) {
         const currentStateWishList = get().wishlist;
-
-        /* const avoidDuplicate = currentStateWishList.find(item => item.id === product.id);
-
-        if (avoidDuplicate) {
-            console.log('дубликат отработал!')
-            return;
-        } */
 
         set({
             wishlist: [...currentStateWishList, product]

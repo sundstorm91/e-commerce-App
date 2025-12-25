@@ -223,14 +223,3 @@ export const Header = () => {
     </header>
   );
 };
-
-/* const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef &&
-        !dropdownRef.current?.contains(event?.target as Node)
-      ) {
-        console.log('АГА');
-
-        setIsDropDownOpen(false);
-      }
-    }; */
