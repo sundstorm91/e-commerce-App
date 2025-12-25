@@ -35,16 +35,12 @@ export const useCartStore = create<ICartState>((set, get) => ({
 
 
     loadCart: async() => {
-        console.log('🔹 loadCart STARTED');
         const userId = useUserStore.getState().currentUser?.id;
-        console.log('🔹 userId:', userId);
-
         set({
             isLoading: true, error: null
         })
 
         if (!userId) {
-            console.log('🔹 No userId - clearing cart');
             set({
                 items: [],
                 isLoading: false
@@ -53,9 +49,7 @@ export const useCartStore = create<ICartState>((set, get) => ({
         }
 
         try {
-            console.log('🔹 Fetching cart data...');
             const cartData = await CartService.getByUserId(userId);
-            console.log('🔹 cartData from API:', cartData);
 
             const firstCart = cartData[0];
 
@@ -103,24 +97,20 @@ export const useCartStore = create<ICartState>((set, get) => ({
         const currentItems = get().items;
 
         const findItem = currentItems.find((item) => item.id === product.id);
-        console.log(findItem)
 
         if (!findItem) {
-            console.log('!findItem!')
             set({
             items: [...currentItems, {
                 ...tranformIntoCartItem(product, quantity),
             }]
         })
         } else {
-            console.log('добавляем...')
             const updatedItems = currentItems.map(item =>
                 item.id === product.id
                 ? { ...item, quantity: item.quantity + quantity}
                 : item
             );
             set({ items: updatedItems });
-            console.log('добавили!')
         }
     },
 
